@@ -1132,7 +1132,6 @@ env.stuf.afe = {
 
 local function autofarm(state)
 	if state then
-		yield(function() return env.funcs.exists() end)
 		if env.stuf.afe.running then return end
 		env.stuf.afe.running = true
 
