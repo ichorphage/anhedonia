@@ -160,24 +160,24 @@ yield(function() return env.setupcomplete and env.essentialsloaded end)
 env.funcs.box("setup complete")
 
 env.expectedcompiledscriptversions = {
-	library = 2,
+	library = 3,
 	data = 3,
-	builder = 2,
+	builder = 3,
 
-	mainsection = 2,
-	navigationsection = 2,
-	visualssection = 2,
+	mainsection = 3,
+	navigationsection = 3,
+	visualssection = 3,
 	localplayersection = 3,
-	automationsection = 2,
-	animationssection = 2,
-	funsection = 2,
-	donorsection = 2,
+	automationsection = 3,
+	animationssection = 3,
+	funsection = 3,
+	donorsection = 3,
 
-	scriptsettingssection = 2,
-	uisettingssection = 2,
-	changelogssection = 2,
+	scriptsettingssection = 3,
+	uisettingssection = 3,
+	changelogssection = 3,
 
-	configloadingsection = 2
+	configloadingsection = 3
 }
 
 -------------------------------------------------------------------------------------------------------------------------------
