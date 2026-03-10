@@ -38,35 +38,6 @@ local folder = "Bоxten Sеx GUI"
 
 -------------------------------------------------------------------------------------------------------------------------------
 
--- main & env setup
-getgenv.BSGUI = {} 
-local env = getgenv.BSGUI
-local setupsucc, setuperr = pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/bookworming/bookshelf/refs/heads/main/book%201/%CA%95s/%CA%94i.lua"))() end)
-
-repeat t() until env.setupcomplete and env.essentialsloaded
-env.funcs.box("setup complete")
-
-env.expectedcompiledscriptversions = {
-	library = 2,
-	data = 3,
-
-	builder = 2,
-
-	mainsection = 2,
-	navigationsection = 2,
-	visualssection = 2,
-	localplayersection = 3,
-	automationsection = 2,
-	animationssection = 2,
-	funsection = 2,
-	donorsection = 2,
-
-	scriptinformationandchangelogssections = 2,
-	configloadingsection = 2
-}
-
--------------------------------------------------------------------------------------------------------------------------------
-
 -- debugger setup
 local debugger = {}
 debugger.logcount = 0
@@ -158,6 +129,40 @@ spwn(function()
 		bottomleft(message, prefix)
 	end)
 end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+-- main & env setup
+getgenv.BSGUI = {} 
+local env = getgenv.BSGUI
+local setupsucc, setuperr = pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/setup/init.lua"))() end)
+
+if setuperr then
+	warn("[Poppy]: Something went wrong. Try again later.")
+  return
+end
+
+repeat t() until env.setupcomplete and env.essentialsloaded
+env.funcs.box("setup complete")
+
+env.expectedcompiledscriptversions = {
+	library = 2,
+	data = 3,
+
+	builder = 2,
+
+	mainsection = 2,
+	navigationsection = 2,
+	visualssection = 2,
+	localplayersection = 3,
+	automationsection = 2,
+	animationssection = 2,
+	funsection = 2,
+	donorsection = 2,
+
+	scriptinformationandchangelogssections = 2,
+	configloadingsection = 2
+}
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -393,16 +398,17 @@ local function loadintro()
 
 	local assetex = {
 		images = {
-			["ive made a severe and continuous lapse in my judgement.png"] = "https://files.catbox.moe/gameg3.png",
-			["heterochromia.png"] = "https://files.catbox.moe/ymqhre.png",
+			["ive made a severe and continuous lapse in my judgement.png"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/images/ive%20made%20a%20severe%20and%20continuous%20lapse%20in%20my%20judgement.png",
+			["heterochromia.png"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/images/heterochromia.png",
+      ["daschund.png"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/images/daschund.png"
 		},
 		videos = {
-			["dandelions forever.mp4"] = "https://files.catbox.moe/cjo1ji.mp4",
+			["dandelions forever.mp4"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/videos/dandelions%20forever.mp4",
 		},
 		sounds = {
-			["call.mp3"] = "https://files.catbox.moe/fbd2e0.mp3",
-			["the things id do for a whopper with cheese.mp3"] = "https://files.catbox.moe/ycx2f9.mp3",
-			["flashbang.mp3"] = "https://files.catbox.moe/lc4bq1.mp3",
+			["call.mp3"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/sounds/call.mp3",
+			["the things id do for a whopper with cheese.mp3"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/sounds/the%20things%20id%20do%20for%20a%20whopper%20with%20cheese.mp3",
+			["flashbang.mp3"] = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/assets/sounds/flashbang.mp3",
 		}
 	}
 
@@ -495,7 +501,7 @@ local function loadintro()
 	env.funcs.introconsolelog("Constructing UI...", "state")
 	t(0.1) env.funcs.introprogress(60)
 
-	local buildsucc = env.funcs.recursivels("book%201/%CA%95s/%CA%94b.lua", true)
+	local buildsucc = env.funcs.recursivels("setup/builder.lua", true)
 
 	if not buildsucc or not env.stuf.sectionsloaded then
 		env.funcs.introconsolelog("Something went wrong. (BuildFail)", "warn")
