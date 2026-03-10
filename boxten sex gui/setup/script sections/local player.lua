@@ -891,9 +891,11 @@ local function gettwisroots()
 
 	if env.stuf.twisteds then
 		for _, monster in ipairs(env.stuf.twisteds:GetChildren()) do
-			local root = table.insert(roots, env.funcs.getstats("twisted", monster).troot)
-			if isvalidpart(root) then
-				table.insert(roots, root)
+			if not monster.Name:find("Connie") and not monster.Name:find("Rodger") and not monster.Name:find("Razzle") and not monster.Name:find("Squirm") and not monster.Name:find("Blot") then
+				local root = table.insert(roots, env.funcs.getstats("twisted", monster).troot)
+				if isvalidpart(root) then
+					table.insert(roots, root)
+				end
 			end
 		end
 	end
