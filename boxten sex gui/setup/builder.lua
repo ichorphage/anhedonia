@@ -108,7 +108,7 @@ end
 env.funcs.introprogress(76)
 
 local scriptsettingscat = env.funcs.recursivels("setup/script%20sections/script%20settings.lua", true)
-env.funcs.introconsolelog("Script info sections loaded. (" .. scriptsettingscat.version .. ")")
+env.funcs.introconsolelog("Script Settings section loaded. (" .. scriptsettingscat.version .. ")")
 if scriptsettingscat.version ~= env.expectedcompiledscriptversions.scriptsettingssecction then
 	env.funcs.introconsolelog("The script settings section is out of date. (" .. scriptsettingscat.version .. "OoD)", "warn")
 end
@@ -116,7 +116,7 @@ end
 env.funcs.introprogress(78)
 
 local uisettingscat = env.funcs.recursivels("setup/script%20sections/ui%20settings.lua", true)
-env.funcs.introconsolelog("Script info sections loaded. (" .. uisettingscat.version .. ")")
+env.funcs.introconsolelog("UI Settings section loaded. (" .. uisettingscat.version .. ")")
 if uisettingscat.version ~= env.expectedcompiledscriptversions.uisettingssecction then
 	env.funcs.introconsolelog("The UI settings section is out of date. (" .. uisettingscat.version .. "OoD)", "warn")
 end
@@ -124,7 +124,7 @@ end
 env.funcs.introprogress(80)
 
 local changelogscat = env.funcs.recursivels("setup/script%20sections/ui%20settings.lua", true)
-env.funcs.introconsolelog("Script info sections loaded. (" .. changelogscat.version .. ")")
+env.funcs.introconsolelog("Changelogs section loaded. (" .. changelogscat.version .. ")")
 if changelogscat.version ~= env.expectedcompiledscriptversions.changelogssection then
 	env.funcs.introconsolelog("The UI settings section is out of date. (" .. changelogscat.version .. "OoD)", "warn")
 end
@@ -1186,7 +1186,7 @@ spwn(function()
 end)
 
 spwn(function()
-	env.funcs.recursivels("book%201/%CA%95u/%CA%94dh.lua", true)
+	-- env.funcs.recursivels("book%201/%CA%95u/%CA%94dh.lua", true)
 end)
 
 spwn(function() 
@@ -1202,7 +1202,7 @@ end)
 
 spwn(function()
 	getgenv.nointro = true
-	env.funcs.recursivels("book%201/%CA%95f/%CA%94br.lua", true)
+	-- env.funcs.recursivels("book%201/%CA%95f/%CA%94br.lua", true)
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
