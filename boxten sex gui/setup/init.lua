@@ -803,8 +803,8 @@ do
 	end
 
 	-- utility
-	function env.funcs.recursivels(link, frompath) -- replaces loadstring, tries to load the link 3 times if unsuccessful
-		local atts = 1
+	function env.funcs.recursivels(link, frompath, atts) -- replaces loadstring, tries to load the link 3 times if unsuccessful
+		local atts = atts or 5
 		local start = os.clock()
 
 		local success, result = pcall(function()
@@ -822,7 +822,7 @@ do
 
 			if atts < 3 then
 				t(1)
-				return env.funcs.recursivels(link, atts + 1)
+				return env.funcs.recursivels(link, frompath, atts + 1)
 			else
 				env.funcs.shr("SOMETHING WENT WRONG. TRY AGAIN LATER. (" .. result .. ")")
 				return nil
