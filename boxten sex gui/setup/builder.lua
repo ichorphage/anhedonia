@@ -523,11 +523,12 @@ local function initsettingssection()
 Noxious: Boxten Sex GUI
 <font color='rgb(130,130,130)' size='11'>Developed by unable</font>
 
-Version: 1.3.0
-<font color='rgb(130,130,130)' size='11'>Sub-version: 1273</font>
+Version: ]] .. env.scriptinfo.script.version .. [[
+
+<font color='rgb(130,130,130)' size='11'>Sub-version: ]] .. env.scriptinfo.script.subversion .. [[</font>
 
 Supported executors:
-<font color='rgb(130,200,130)' size='13'>Hydrogen, Macsploit, Xeno, Delta, Velocity,</font> <font color='rgb(180,180,130)' size='12'>Zenith, Vega X, Seliware, Bunni.lol, Ronix,</font> <font color='rgb(130,130,130)' size='11'>Volcano</font>
+<font color='rgb(130,200,130)' size='13'>Hydrogen, Macsploit, Opiumware, Delta,</font> <font color='rgb(180,180,130)' size='12'>Zenith, Vega X, Seliware, Bunni.lol, Xeno,</font> <font color='rgb(130,130,130)' size='11'>Volcano</font>
         ]], 14, nil, 1, UDim2.new(0.5, -1, 0, 16), Enum.TextXAlignment.Left, Enum.TextYAlignment.Top)
 	end
 
