@@ -1175,14 +1175,14 @@ local function autofarm(state)
 			end
 		end)
 
-		local spottedconn = rst.StoryEvents.Spotted.OnClientEvent:Connect(function()
+		local function onspotted()
 			t()
 			if env.stuf.actionqueuerunning then 
-				env.funcs.pop("Player has been spotted, but the autofarm actions are still running!")
+				env.funcs.pop("Player is in danger, but the autofarm actions are still running!")
 				return 
 			end
 
-			env.funcs.pop("Player has been spotted, pausing machine teleport loop.")
+			env.funcs.pop("Player is in danger, pausing machine teleport loop.")
 			tplooppause = true
 
 			toelevator(true, "tp")
@@ -1209,7 +1209,9 @@ local function autofarm(state)
 			tplooppause = false
 
 			env.funcs.box("resuming machine teleport loop")
-		end)
+		end
+
+		local spottedconn = rst.StoryEvents.Spotted.OnClientEvent:Connect(onspotted)
 		table.insert(env.stuf.afe.conns, spottedconn)
 
 		local stoppedextractingconn = env.stuf.char.Decoding.Changed:Connect(function(val)
@@ -1239,6 +1241,49 @@ local function autofarm(state)
 			end
 		end)
 		table.insert(env.stuf.afe.conns, factiveconn)
+
+		local obstacledetectedconn = env.stuf.roomfolder.Changed:Connect(function()
+			local freeareaconn, currentroomconn
+			local function disconnect()
+				obstacledetectedconn:Disconnect()
+				obstacledetectedconn = nil
+
+				if freeareaconn then
+					freeareaconn:Disconnect()
+					freeareaconn = nil
+				end
+
+				if currentroomconn then
+					currentroomconn:Disconnect()
+					currentroomconn = nil
+				end
+			end
+
+			t(1)
+
+			if env.stuf.currentroom then
+				yield(function() return env.stuf.freearea end)
+
+				freeareaconn = env.stuf.freearea.Changed:Connect(function()
+					for _, obj in ipairs(env.stuf.freearea:GetChildren()) do
+						if obj.Name:find("Sprout") then
+							onspotted()
+						end
+					end
+				end)
+
+				currentroomconn = env.stuf.currentroom.Changed:Connect(function()
+					for _, obj in ipairs(env.stuf.currentroom:GetChildren()) do
+						if obj.Name:find("BlotHand") then
+							onspotted()
+						end
+					end
+				end)
+			else
+				disconnect()
+			end
+		end)
+		table.insert(env.stuf.afe.conns, obstacledetectedconn)
 
 	else
 		env.funcs.box("autofarm stopped")
@@ -1278,17 +1323,32 @@ local section = {
 			env.stuf.afe.priority = selected
 		end 
 	},
-	{ type = "slider", title = "Item capacity limit for autofarm", desc = "Limits the amount of items you can hold in your inventory.", min = 0, max = 4, default = env.stuf.afe.maxitemcap, step = 1,
+	{ type = "slider", title = "Item capacity limit for autofarm", desc = "Limits the amount of items you can hold in your inventory.", 
+		min = 0, 
+		max = 4, 
+		default = env.stuf.afe.maxitemcap, 
+		step = 1,
+
 		callback = function(value)
 			env.stuf.afe.maxitemcap = value
 		end
 	},
-	{ type = "slider", title = "Item max distance for autofarm", desc = "Avoids items when a Twisted is within the set distance of the item.", min = 0, max = 100, default = env.stuf.afe.itemmaxdist, step = 1,
+	{ type = "slider", title = "Item max distance for autofarm", desc = "Avoids items when a Twisted is within the set distance of the item.", 
+		min = 0, 
+		max = 100, 
+		default = env.stuf.afe.itemmaxdist, 
+		step = 1,
+
 		callback = function(value)
 			env.stuf.afe.itemmaxdist = value
 		end
 	},
-	{ type = "slider", title = "Machine max distance for autofarm", desc = "Avoids machines when a Twisted is within the set distance of the machine.", min = 0, max = 100, default = env.stuf.afe.machmaxdist, step = 1,
+	{ type = "slider", title = "Machine max distance for autofarm", desc = "Avoids machines when a Twisted is within the set distance of the machine.", 
+		min = 0, 
+		max = 100, 
+		default = env.stuf.afe.machmaxdist, 
+		step = 1,
+
 		callback = function(value)
 			env.stuf.afe.machmaxdist = value
 		end
@@ -1297,7 +1357,12 @@ local section = {
 		callback = function(state) 
 		end
 	},
-	{ type = "slider", title = "Anti crash memory leak threshold", desc = "Lowers the memory usage when it exceeds the set value.", min = 1000, max = 15000, default = 2000, step = 100,
+	{ type = "slider", title = "Anti crash memory leak threshold", desc = "Lowers the memory usage when it exceeds the set value.", 
+		min = 1000, 
+		max = 15000, 
+		default = 2000, 
+		step = 100,
+
 		callback = function(value)
 		end
 	},
