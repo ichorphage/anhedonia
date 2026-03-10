@@ -66,7 +66,7 @@ local tagformats = {
 }
 
 local function bottomleft(text, log)
-	if not env.essentials.sgui then repeat t() until env.essentials.sgui end
+	repeat t() until env.setupcomplete
 	if not env.gear.general.debugmode then return end
 
 	text = text:gsub("%s*\n%s*", " ")
