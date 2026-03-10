@@ -990,9 +990,10 @@ do
 		end
 	end
 
-	function env.funcs.getstats(type, obj) -- returns a table full of the target objects stats, can fetch the floor, item, machine, twisted, and another players stats
+	function env.funcs.getstats(type, obj, stat) -- returns a table full of the target objects stats, can fetch the floor, item, machine, twisted, and another players stats
 		if not obj:IsA("Model") then env.funcs.shr("INVALID OBJECT, IDIOT!!!") end
 		local name = obj.Name
+		local result
 
 		if type == "floor" then
 			local floorname = env.stuf.currentroom.Name
@@ -1012,7 +1013,7 @@ do
 				end
 			end
 
-			return {
+			result = {
 				floorname = floorname, 
 				twistedsonfloor = twistedsonfloor, 
 				itemsonfloor = itemsonfloor, 
@@ -1021,16 +1022,17 @@ do
 
 		elseif type == "item" then
 			local prompt = obj:FindFirstChild("Prompt") or nil
-			local act = prompt and prompt:FindFirstChildOfClass("ProximityPrompt") or nil
+			local prox = prompt and prompt:FindFirstChildOfClass("ProximityPrompt") or nil
 
 			local research
 			if name == "ResearchCapsule" then 
 				research = prompt and prompt:FindFirstChild("Monster").Value or 0
 			end
 
-			return {
-				act = act, 
-				research = research}
+			result = {
+				prox = prox, 
+				research = research
+			}
 
 		elseif type == "machine" then
 			local stats = obj:FindFirstChild("Stats")
@@ -1057,7 +1059,7 @@ do
 				machtype = "normal"
 			end
 
-			return {
+			result = {
 				pos = pos, 
 				prox = prox,
 				active = active, 
@@ -1097,7 +1099,7 @@ do
 			local tr = research:FindFirstChild(name)
 			if not tr then research = 0 else research = tr.Value end
 
-			return {
+			result = {
 				name = name, 
 				troot = troot, 
 				alerted = alerted, 
@@ -1166,7 +1168,7 @@ do
 				end
 			end
 
-			return {
+			result = {
 				currentstealth = currentstealth, 
 				twistedschasing = twistedschasing, 
 				currenttoon = currenttoon, 
@@ -1193,6 +1195,8 @@ do
 				currentabilitycooldown = currentabilitycooldown
 			}
 		end
+
+		return stat and result[stat] or result
 	end
 
 	function env.funcs.getgamestat(stat) -- returns the value of the target game stat
