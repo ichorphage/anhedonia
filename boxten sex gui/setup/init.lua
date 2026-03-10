@@ -65,10 +65,10 @@ end
 
 spwn(function()
 	yield(function() return env.setupcomplete end) env.funcs.pop("Hi!")
-	env.essentials.library = env.funcs.recursivels("book%201/%CA%95u/%CA%94l.lua", true) 
+	env.essentials.library = env.funcs.recursivels("ui/library.lua", true) 
 	env.funcs.box("UI library loaded successfully")
 
-	env.essentials.data = env.funcs.recursivels("book%201/%CA%95s/%CA%94d.lua", true)
+	env.essentials.data = env.funcs.recursivels("setup/data.lua", true)
 	env.funcs.box("script data loaded successfully")
 
 	env.essentialsloaded = true
@@ -723,7 +723,7 @@ do
 
 	spwn(function() 
 		if not env.funcs.recursivels then repeat t() until function() return env.funcs.recursivels end end
-		env.stuf.dialogue = env.funcs.recursivels("book%201/%CA%95u/%CA%94d.lua", true) 
+		env.stuf.dialogue = env.funcs.recursivels("ui/dialogue.lua", true) 
 	end)
 
 	-- donor handling
@@ -804,7 +804,7 @@ do
 
 		local success, result = pcall(function()
 			local truelink = link
-			if frompath then truelink = "https://raw.githubusercontent.com/bookworming/bookshelf/refs/heads/main/" .. link end
+			if frompath then truelink = "https://raw.githubusercontent.com/ichorphage/anhedonia/refs/heads/main/boxten%20sex%20gui/" .. link end
 			local source = game:HttpGet(truelink)
 			return loadstring(source)()
 		end)
