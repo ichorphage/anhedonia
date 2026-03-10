@@ -502,9 +502,9 @@ end
 
 local function initsettingssection()
 	local cats = {
-		["Script Settings"] = scriptinfocats["1"],
-		["UI Settings"] = scriptinfocats["2"],
-		Changelogs = scriptinfocats["3"]
+		["Script Settings"] = scriptsettingscat,
+		["UI Settings"] = uisettingscat,
+		Changelogs = changlogscat
 	}
 
 	local buttons = {
