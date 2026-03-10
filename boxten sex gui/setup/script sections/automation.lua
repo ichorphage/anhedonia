@@ -538,7 +538,7 @@ local function autoteleporttomachine(state)
 
 	if table.find(conditions, "Map fully loaded") then
 		local conn = env.stuf.roomfolder.ChildAdded:Connect(function()
-			yield(function() return env.funcs.getgamestat("message"):find("Doors open") end)
+			yield(env.funcs.floorloaded())
 			yield(function() return not env.stuf.actionqueuerunning end)
 			doteleport()
 		end)
@@ -630,6 +630,7 @@ local function monitorcards()
 	voter.ChildRemoved:Connect(function()
 		if #voter:GetChildren() == 0 then alreadyVoted = false end
 	end)
+
 	if #voter:GetChildren() > 0 then tryvote() end
 end
 
@@ -721,14 +722,14 @@ local function tryuseitem(stats)
 		if (itemname == "HealthKit" or itemname == "Bandage") and not lowhealth then continue end
 		local slot = getitemslot(stats, itemname)
 		if slot then
-			env.funcs.box("attempting to use item in inventory slot " .. slot)
+			env.funcs.box("attempting to use " .. itemname .. " in inventory slot " .. slot)
 			env.funcs.useitem(slot)
 			return
 		end
 	end
 end
 
-local function onInventoryChanged()
+local function oninventorychanged()
 	if not autousingitems then return end
 	local stats = env.funcs.getstats("player", env.stuf.char)
 	if not stats then return end
@@ -768,7 +769,7 @@ local function autouseitems(state)
 		for i = 1, 4 do
 			local slot = inventory:FindFirstChild("Slot" .. i)
 			if slot then
-				table.insert(autouseitemsconns, slot.Changed:Connect(onInventoryChanged))
+				table.insert(autouseitemsconns, slot.Changed:Connect(oninventorychanged))
 			end
 		end
 	end
@@ -1051,7 +1052,7 @@ local function hookaction(action)
 
 	if table.find(performactionstriggers, "Map fully loaded") then
 		table.insert(action.conns, env.stuf.roomfolder.ChildAdded:Connect(function()
-			yield(function() return env.funcs.getgamestat("message"):find("Doors open") end)
+			yield(env.funcs.floorloaded())
 			try()
 		end))
 	end
