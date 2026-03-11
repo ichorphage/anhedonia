@@ -828,7 +828,7 @@ local function sprinttap()
 		local sprintEvent = rst.Events.SprintEvent
 		local sprinting = false
 
-		while sprinttappingenabled and env.funcs.getgamestat("flooractive") and env.stuf.twisteds do
+		while sprinttappingenabled and env.funcs.getgamestats().flooractive and env.stuf.twisteds do
 			local nearestMonster = nil
 			local nearestDist = math.huge
 
@@ -1175,8 +1175,8 @@ local function autofarm(state)
 			while env.stuf.afe.running do
 				if not tplooppause then
 					if not env.stuf.actionqueuerunning then
-						if not env.funcs.getgamestat("panicmode") then
-							if env.funcs.getgamestat("flooractive") then
+						if not env.funcs.getgamestats().panicmode then
+							if env.funcs.getgamestats().flooractive then
 								if not env.funcs.getstats("player", env.stuf.char).extracting then
 									env.funcs.tomachine("tp")
 								else
