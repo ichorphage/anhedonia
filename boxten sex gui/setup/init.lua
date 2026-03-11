@@ -982,7 +982,7 @@ do
 
 	function env.funcs.floorloaded() -- returns true if the floor / map has completely loaded
 		if env.setupcomplete then
-			return env.funcs.getgamestat("message"):find("Doors open")
+			return env.funcs.getgamestats().message:find("Doors open")
 		end
 	end
 
@@ -1195,7 +1195,7 @@ do
 		return stat and result[stat] or result
 	end
 
-	function env.funcs.getgamestat(stat) -- returns the value of the target game stat
+	function env.funcs.getgamestats() -- returns the value of the target game stat
 		local gamestats = {
 			gamestarted = env.stuf.gameinfo:FindFirstChild("GameStarted").Value,
 			cardvoting = env.stuf.gameinfo:FindFirstChild("CardVoting").Value,
@@ -1211,7 +1211,7 @@ do
 			message = env.stuf.gameinfo:FindFirstChild("Message").Value
 		}
 
-		return stat and gamestats[stat] or gamestats
+		return gamestats
 	end
 
 	function env.funcs.useitem(slot, breakifoneused)
