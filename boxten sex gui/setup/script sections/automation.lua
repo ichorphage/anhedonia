@@ -1134,6 +1134,13 @@ env.stuf.afe = {
 	tploopthread = nil
 }
 
+spwn(function()
+while true do
+print(tostring(env.stuf.afe.running))
+t(0.5)
+end
+end
+
 local function autofarm(state)
 	if state then
 		if env.stuf.afe.running then 
