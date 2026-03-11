@@ -1134,13 +1134,6 @@ env.stuf.afe = {
 	tploopthread = nil
 }
 
-spwn(function()
-while true do
-print(tostring(env.stuf.afe.running))
-t(0.5)
-end
-end
-
 local function autofarm(state)
 	if state then
 		if env.stuf.afe.running then 
@@ -1317,7 +1310,6 @@ local section = {
 	{ type = "separator", title = "Autofarming" },
 	{ type = "toggle", title = "Toggle autofarm", desc = "Toggles the autofarm. Turning on any functions that modify or adjust the player's behavior may result in conflicts.",
 		callback = function(state) 
-			env.stuf.afe.running = state
 			autofarm(state)
 		end
 	},
