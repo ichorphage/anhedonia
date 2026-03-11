@@ -1136,7 +1136,11 @@ env.stuf.afe = {
 
 local function autofarm(state)
 	if state then
-		if env.stuf.afe.running then return end
+		if env.stuf.afe.running then 
+			env.funcs.pop("The autofarm is already running!")
+			return 
+		end
+
 		env.stuf.afe.running = true
 
 		env.funcs.box("autofarm started")
