@@ -1175,7 +1175,7 @@ local function autofarm(state)
 			while env.stuf.afe.running do
 				if not tplooppause then
 					if not env.stuf.actionqueuerunning then
-						if not env.funcs.getgamestat("panicmode") then
+						if not game.Workspace.Info.Panic.Value then
 							if env.funcs.getgamestat("flooractive") then
 								if not env.funcs.getstats("player", env.stuf.char).extracting then
 									env.funcs.tomachine("tp")
