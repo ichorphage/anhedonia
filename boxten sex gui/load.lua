@@ -43,11 +43,7 @@ getgenv.BSGUI = {}
 local env = getgenv.BSGUI
 
 local function yield(this)
-	local skip = this()
-
-	if not skip then 
-		repeat t() until this() 
-	end
+	repeat t() until this() 
 end
 
 -------------------------------------------------------------------------------------------------------------------------------
