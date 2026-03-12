@@ -963,7 +963,9 @@ end
 local function dobassieboneonce()
 	if bassieboneconn then return end
 	bassieboneconn = env.stuf.items.ChildAdded:Connect(fireprompts)
-    if bassieboneconn then
+	bassiebone()
+
+	if bassieboneconn then
 		bassieboneconn:Disconnect()
 		bassieboneconn = nil
   end
