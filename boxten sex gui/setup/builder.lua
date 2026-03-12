@@ -1192,7 +1192,7 @@ spwn(function()
 end)
 
 spwn(function()
-	-- env.funcs.recursivels("book%201/%CA%95u/%CA%94dh.lua", true)
+	env.funcs.recursivels("ui/dialogue%20handler.lua", true)
 end)
 
 spwn(function() 
