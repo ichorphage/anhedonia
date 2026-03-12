@@ -1103,7 +1103,10 @@ local function autoforcequitmachine(state)
 	if state then 
 		if not autoforcequitmachineconn then 
 			autoforcequitmachineconn = rst.StoryEvents.Spotted.OnClientEvent:Connect(function()
-				env.funcs.forcequitmachine()
+				for _ = 1, 20 do 
+					env.funcs.forcequitmachine()
+					t()
+				end
 			end) 
 		end
 	else
