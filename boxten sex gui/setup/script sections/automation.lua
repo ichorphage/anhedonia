@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 4
+local version = 5
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -543,7 +543,7 @@ local function autoteleporttomachine(state)
 		local conn = env.stuf.roomfolder.ChildAdded:Connect(function()
 			yield(function() return env.funcs.floorloaded() end)
 			yield(function() return not env.stuf.actionqueuerunning end)
-			t(0.1) doteleport()
+			doteleport()
 		end)
 		table.insert(autoteleporttomachineconns, conn)
 	end
@@ -1055,8 +1055,7 @@ local function hookaction(action)
 	if table.find(performactionstriggers, "Map fully loaded") then
 		table.insert(action.conns, env.stuf.roomfolder.ChildAdded:Connect(function()
 			yield(function() return env.funcs.floorloaded() end)
-			print("e")
-			t(0.1) try()
+			try()
 		end))
 	end
 
@@ -1135,7 +1134,8 @@ env.stuf.afe = {
 	},
 
 	conns = {},
-	tploopthread = nil
+	tploopthread = nil,
+	alreadyspotted = false
 }
 
 local function autofarm(state)
@@ -1198,12 +1198,15 @@ local function autofarm(state)
 		end)
 
 		local function onspotted()
-			t()
+			if env.stuf.afe.alreadyspotted then return end
+
 			if env.stuf.actionqueuerunning then 
 				env.funcs.pop("Player is in danger, but the auto action queue hasn't finished!")
 				return 
 			end
 
+			env.stuf.afe.alreadyspotted = true
+			yield(function() return env.stuf.char.Decoding.Value end)
 			env.funcs.pop("Player is in danger, pausing machine teleport loop.")
 			tplooppause = true
 
@@ -1229,6 +1232,7 @@ local function autofarm(state)
 				t(1)
 			end
 			tplooppause = false
+			env.stuf.afe.alreadyspotted = false
 
 			env.funcs.box("resuming machine teleport loop")
 		end
