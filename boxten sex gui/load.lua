@@ -21,7 +21,7 @@ local randstring = function() local s = "" for i = 1, math.random(8, 15) do if m
 local getins = getmmfromerr(game, function(a,b) return a[b] end, function(f) local a = Instance.new("Folder") local b = randstring() a.Name = b return f(a, "Name") == b end)
 local FindFirstChildOfClass = getins(game, "FindFirstChildOfClass") 
 
-local rs = game:GetService("RunService")
+local rs = FindFirstChildOfClass(game, "RunService")
 local ls = FindFirstChildOfClass(game, "LogService")
 local uis = FindFirstChildOfClass(game, "UserInputService")
 local ts = FindFirstChildOfClass(game, "TweenService")
