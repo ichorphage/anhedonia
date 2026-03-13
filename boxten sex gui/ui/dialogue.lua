@@ -152,17 +152,10 @@ dialogue.boxten = {
 				"you playing tag with the Twisteds or something? sounds fun.",
 				"not sure if you already know about this, but the Twisteds arent your friends. their goal is to kill you.",
 				"its alright, everyone makes mistakes. try to find something or someone that can heal you.",
-			},
-
-			bylowerclasstwisted = {
 				"ahh, {twisted}, eh? they piss me off sometimes.",
 				"really? youre just gonna let {twisted} fuck you up like that?",
-			},
-
-			bymaintwisted = {
-				"ouch. i felt that.",
-				"be more careful next time.",
 				"good thing {twisted} isnt a Lethal or that wouldve ended badly.",
+				"ouch. i felt that.",
 			},
 
 			byblotshand = {
@@ -231,19 +224,12 @@ dialogue.boxten = {
 				"hey, its alright, everyone makes mistakes. just kidding, youre horrible.",
 				"really!? all you had to do was not die!",
 				"pathetic, how could you do this to yourself?",
-			},
-
-			bylowerclasstwisted = {
 				"ouch, unlucky.",
 				"damn. by {twisted} too?, pfft...",
 				"you should try harder next time.",
 				"me, personally, i would have gotten out of {twisted}& path and avoided them at all costs in order to not die.",
 				"dont worry. i also think that {twisted}& a huge pain in the ass sometimes.",
-			},
-
-			bymaintwisted = {
 				"lol.",
-				"them main Twisteds aint shit...",
 				"{twisted}? theyre easy to manage. try harder.",
 			},
 
@@ -379,7 +365,7 @@ dialogue.boxten = {
 			ichorleak = {
 				"what could that sound possibly mean?",
 				"pipes busted. just dont walk on the puddles.",
-				"sounds like one of the Twisteds couldnt hold it in... eugh... you know what actually? forget i ever said that.",
+				"looks like one of the Twisteds couldnt hold it in for much longer... eugh... you know what actually? forget i ever said that.",
 			},
 
 			regular = {
@@ -525,65 +511,80 @@ dialogue.boxten = {
 
 		someonedamagedmessages = {
 			inlessthan20seconds = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"HA! what a dumbass!!",
+				"really {player}?",
+				"{player} really needed {twisted}& research.",
 			},
 
 			ononeheart = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"{player} could use some help... you know what actually? just let them die.",
+				"ill be rooting for your death, {player}.",
+				"{player} is at one heart!",
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"{player} got hit. be glad it wasnt you.",
+				"does {player} know what theyre doing?",
+				"good going, {player}.",
+				"nice job, {player}.",
 			},
 
 			byblotshand = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"either {player}& a dumbass or theyre just spatially unaware.",
+				"watch where youre going, {player}.",
 			},
 
 			bysproutstendril = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"watch where youre going, {player}.",
+				"Twisted Sprout should just end {player}& life already.",
 			},
 
 			byconnie = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"yo... can anyone check up on {player}?",
+				"what the fuck, {player}, i expected better from you.",
+				"are you fucking kidding me, {player}? you deadass got yourself hit by this fuckass ghost?",
 			},
 
 			bygoob = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"get a move on, {player}. Twisted Goob aint that hard to avoid.",
 			},
 
 			byscraps = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"Twisted Scraps sniped {player}."
 			},
 
 			byrazzleanddazzle = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"good job, dumbass. expected behavior from a {player}."
 			}
 		},
 
 		someonediedmessages = {
 			infloorlessthan3 = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"{player} wasnt really feeling it.",
+				"{player} realized that this team was fucking garbage. i dont blame them!",
+				"did {player} give up or something?",
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
+				"{player} died. ha ha! noob! what a noob!",
+				"{player} died. how unfortunate.",
+				"rest in peace to {player}, they will be missed.",
+				"you probably didnt need {player} anyway, right?",
+				"{player} tripped.",
+				"looks like {player} wasnt feeling it.",
+				"{player} has fallen.",
+				"be glad it was {player} and not you.",
+				"{player} got turned into an arts and crafts project.",
+				"i hope {player} was wearing dog tags!",
+				"{player} was NOT locked and loaded.",
+				"{player} bit the dust.",
+				"{player} tried to shake hands with a Twisted.",
+				"{player} kicked the bucket.",
+				"{player} forgot to breathe.",
+				"{player} got an E for effort.",
+				"{player} had so much to live for.",
+				"{player} sneezed too hard.",
+				"{player}'s gonna need a patreon.",
 			},
 
 			bylethaltwisted = {
@@ -817,14 +818,6 @@ dialogue.altboxten = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -868,14 +861,6 @@ dialogue.altboxten = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -1065,14 +1050,6 @@ dialogue.altboxten = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -1104,14 +1081,6 @@ dialogue.altboxten = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -1346,14 +1315,6 @@ dialogue.poppy = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -1397,14 +1358,6 @@ dialogue.poppy = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -1594,14 +1547,6 @@ dialogue.poppy = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -1633,14 +1578,6 @@ dialogue.poppy = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -1881,14 +1818,6 @@ dialogue.shrimpo = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -1932,14 +1861,6 @@ dialogue.shrimpo = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -2129,14 +2050,6 @@ dialogue.shrimpo = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
 			byblotshand = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
@@ -2168,14 +2081,6 @@ dialogue.shrimpo = {
 			},
 
 			regular = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bylowerclasstwisted = {
-				"thequickbrownfoxjumpsoverthelazydog"
-			},
-
-			bymaintwisted = {
 				"thequickbrownfoxjumpsoverthelazydog"
 			},
 
@@ -2344,14 +2249,6 @@ conversations = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
 
-		bylowerclasstwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bymaintwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
 		byblotshand = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
@@ -2379,14 +2276,6 @@ conversations = {
 
 	playerdied = {
 		infloorlessthan3 = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bylowerclasstwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bymaintwisted = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
 
@@ -2450,14 +2339,6 @@ conversations = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
 
-		bylowerclasstwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bymaintwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
 		byblotshand = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
@@ -2485,14 +2366,6 @@ conversations = {
 
 	someonedied = {
 		infloorlessthan3 = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bylowerclasstwisted = {
-			"thequickbrownfoxjumpsoverthelazydog"
-		},
-
-		bymaintwisted = {
 			"thequickbrownfoxjumpsoverthelazydog"
 		},
 
