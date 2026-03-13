@@ -1698,7 +1698,7 @@ local section = {
 			autobassiebone(state)
 		end
 	},
-	{ type = "slider", title = "Auto Bassie Bone delay", desc = "Sets the delay for the auto Bassie Bone (In milliseconds).", min = 5, max = 500, default = 30, step = 5,
+	{ type = "slider", title = "Auto Bassie Bone delay", desc = "Sets the delay for the auto Bassie Bone (In seconds).", min = 5, max = 500, default = 30, step = 5,
 		callback = function(value)
 			bassiebonedelay = value
 			if bassieboneenabled then
