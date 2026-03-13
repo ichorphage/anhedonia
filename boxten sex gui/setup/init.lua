@@ -631,14 +631,16 @@ do
 		local statsfolder = env.stuf.char:WaitForChild("Stats", 5)
 		if statsfolder then
 			env.stuf.plrstats = statsfolder
+		else
+			env.funcs.pop("Player stats folder not found!")
 		end
 
 		local hum = char:WaitForChild("Humanoid", 5)
-		if not hum then return end
+		if not hum then env.funcs.pop("Character Humanoid not found!") return end
 		env.stuf.hum = hum
 
 		local root = char:WaitForChild("HumanoidRootPart", 5)
-		if not root then return end
+		if not root then env.funcs.pop("Character RootPart not found!") return end
 		env.stuf.root = root
 	end
 
@@ -678,13 +680,13 @@ do
 					if not env.stuf.currentroom then
 						if env.stuf.refconn then env.stuf.refconn:Disconnect() env.stuf.refconn = nil end
 						if env.stuf.refconn2 then env.stuf.refconn2:Disconnect() env.stuf.refconn2 = nil end
-						env.funcs.pop("The room doesn't exist yet!")
+						env.funcs.shr("ROOM MODEL DOESNT EXIST YET, CANNOT UPDATE ROOM REFERENCES.")
 						return
 					else
 						if not env.stuf.currentroom:FindFirstChild("FreeArea") then
 							if env.stuf.refconn then env.stuf.refconn:Disconnect() env.stuf.refconn = nil end
 							if env.stuf.refconn2 then env.stuf.refconn2:Disconnect() env.stuf.refconn2 = nil end
-							env.funcs.pop("The room seems to be incomplete!")
+							env.funcs.shr("THE ROOM SEEMS TO BE INCOMPLETE OR IS CURRENTLY UNLOADING.")
 							return
 						end
 					end
@@ -835,7 +837,12 @@ do
 
 	function env.funcs.datacheck(class, aim) -- checks whether the target user is in the specified userclass, returns true or false
 		aim = aim or env.stuf.user
-		for _, user in ipairs(class) do if user == aim then return true end end return false
+		for _, user in ipairs(class) do 
+			if user == aim then 
+				return true 
+			end 
+		end 
+		return false
 	end
 
 	function env.funcs.identifyexec() -- returns the user's executor
@@ -851,6 +858,8 @@ do
 	function env.funcs.copytoclipboard(txt) -- copies a string to the player's clipboard
 		if clipboard then 
 			clipboard(tostring(txt))
+		else
+			env.funcs.shr("SOMETHING WENT WRONG WHEN TRYING TO COPY " .. txt .. " TO THE CLIPBOARD.")
 		end 
 	end
 
@@ -982,9 +991,10 @@ do
 
 	function env.funcs.roomcomplete() -- checks if currentroom is missing any components, returns false if so
 		if not env.stuf.currentroom:FindFirstChild("FreeArea") or
-		not env.stuf.currentroom:FindFirstChild("Monsters") or
-		not env.stuf.currentroom:FindFirstChild("Items") or
-		not env.stuf.currentroom:FindFirstChild("Generators") then
+			not env.stuf.currentroom:FindFirstChild("Monsters") or
+			not env.stuf.currentroom:FindFirstChild("Items") or
+			not env.stuf.currentroom:FindFirstChild("Generators") then
+			env.funcs.pop("The room seems to be missing a few components!")
 			return false
 		end
 	end
@@ -1239,48 +1249,63 @@ do
 	end
 
 	function env.funcs.useitem(slot, breakifoneused)
-		if slot == "all" then
-			for i = 1, 4 do
-				local slotn = "Slot" .. i
-				local slotvalue = env.funcs.getstats("player", env.stuf.char)[slotn:lower()]
+		local function useit()
+			if slot == "all" then
+				env.funcs.box("attempting to use all items in player inventory")
+				for i = 1, 4 do
+					local slotn = "Slot" .. i
+					local slotvalue = env.funcs.getstats("player", env.stuf.char)[slotn:lower()]
 				
-				if slotvalue ~= "None" then
-					local args = {
-						env.stuf.char,
-						game:GetService("Players").LocalPlayer.Character:WaitForChild("Inventory"):WaitForChild(slotn)
-					}
-					rst.Events.ItemEvent:InvokeServer(unpack(args))
+					if slotvalue ~= "None" then
+						local args = {
+							env.stuf.char,
+							game:GetService("Players").LocalPlayer.Character:WaitForChild("Inventory"):WaitForChild(slotn)
+						}
+						rst.Events.ItemEvent:InvokeServer(unpack(args))
 					
-					if breakifoneused then
-						local newslotvalue = env.funcs.getstats("player", env.stuf.char)[slotn:lower()]
-						if newslotvalue == "None" then
-							break
+						if breakifoneused then
+							local newslotvalue = env.funcs.getstats("player", env.stuf.char)[slotn:lower()]
+							if newslotvalue == "None" then
+								break
+							end
 						end
 					end
 				end
+			else
+				env.funcs.box("attempting to use item in slot " .. slot)
+				local args = {
+					env.stuf.char,
+					env.stuf.char:WaitForChild("Inventory"):WaitForChild("Slot" .. slot)
+				}
+				rst.Events.ItemEvent:InvokeServer(unpack(args))
 			end
+			return true
+		end
+
+		local succ = useit()
+		if succ then 
+			env.funcs.box("item usage succeeded")
 		else
-			local args = {
-				env.stuf.char,
-				env.stuf.char:WaitForChild("Inventory"):WaitForChild("Slot" .. slot)
-			}
-			rst.Events.ItemEvent:InvokeServer(unpack(args))
+			env.funcs.pop("Something went wrong when trying to use item(s).")
 		end
 	end
 
-	function env.funcs.veemoteactive() -- returns the vmotes value if the user has it, true if active, false if inactive
-		local folder = env.stuf.char:FindFirstChild("Trinkets")
+	function env.funcs.veemoteactive(plr) -- returns the vmotes value if the user has it, true if active, false if inactive
+		local plr = env.stuf.char or plr.Character
+		local folder = plr:FindFirstChild("Trinkets")
+		
 		if folder then
 			for _, trinket in ipairs(folder:GetChildren()) do
 				if trinket.Value == "VeeRemote" then
 					local active = trinket:FindFirstChild("Active")
 					if active then
+						env.funcs.box(plr.Name .. "'s vee remote Trinket active status is " .. active.Value)
 						return active.Value
 					end
 				end
 			end
 		else
-			env.funcs.pop("Trinkets folder not found!")
+			env.funcs.pop("Trinkets folder not found for " .. plr.Name .. "!")
 		end
 	end
 
