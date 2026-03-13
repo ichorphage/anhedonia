@@ -1208,11 +1208,14 @@ local function autofarm(state)
 			end
 
 			env.stuf.afe.alreadyspotted = true
-			yield(function() return env.stuf.char.Decoding.Value end)
 			env.funcs.pop("Player is in danger, pausing machine teleport loop.")
 			tplooppause = true
 
-			toelevator(true, "tp")
+			for _ = 1, 20 do
+				toelevator(true, "tp")
+				t()
+			end
+
 			t(2)
 
 			local highestintresttime = 5
