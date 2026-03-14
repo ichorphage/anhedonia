@@ -1266,7 +1266,7 @@ do
 		return gamestats
 	end
 
-	function env.funcs.useitem(slot, breakifoneused)
+	function env.funcs.useitem(slot, breakifoneused) -- self explanatory
 		local function useit()
 			if slot == "all" then
 				env.funcs.box("attempting to use all items in player inventory")
