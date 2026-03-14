@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 7
+local version = 8
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -655,7 +655,7 @@ local function setupplayeresp(state)
 				for i = 1, 4 do
 					local heart = heartIcons[i]
 					if i <= max then
-						heart.ImageTransparency = (i <= current) and 0 or 0.4
+						heart.ImageTransparency = (i <= current) and 0 or 0.6
 					else
 						heart.ImageTransparency = 1
 					end
@@ -780,13 +780,13 @@ local function setupplayeresp(state)
 
 			local tapesRowLayout = Instance.new("UIListLayout")
 			tapesRowLayout.FillDirection = Enum.FillDirection.Horizontal
-			tapesRowLayout.Padding = UDim.new(0, 4)
+			tapesRowLayout.Padding = UDim.new(0, 5)
 			tapesRowLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			tapesRowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 			tapesRowLayout.Parent = tapesRow
 
 			local tapesIcon = Instance.new("ImageLabel")
-			tapesIcon.Size = UDim2.fromOffset(14, 14)
+			tapesIcon.Size = UDim2.fromOffset(15, 15)
 			tapesIcon.BackgroundTransparency = 1
 			tapesIcon.Image = "rbxassetid://138028861815970"
 			tapesIcon.LayoutOrder = 0
