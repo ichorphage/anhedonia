@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 3
+local version = 4
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -465,9 +465,11 @@ local function setupplayeresp(state)
 			
 			local sideSectionWidth = 120
 			local sideSectionHeight = 100
+			local totalBillboardWidth = billboardWidth + sideSectionWidth + 16
+			local totalBillboardHeight = 230
 
 			local fullBillboard = Instance.new("BillboardGui")
-			fullBillboard.Size = UDim2.fromOffset(billboardWidth + sideSectionWidth + 16, 230)
+			fullBillboard.Size = UDim2.fromOffset(totalBillboardWidth, totalBillboardHeight)
 			fullBillboard.StudsOffset = Vector3.new(0, 0, 0)
 			fullBillboard.AlwaysOnTop = true
 			fullBillboard.Adornee = hrp
@@ -479,22 +481,13 @@ local function setupplayeresp(state)
 
 			local nameSection = Instance.new("Frame")
 			nameSection.Size = UDim2.fromOffset(billboardWidth, nameRowHeight)
-			nameSection.Position = UDim2.new(0.5, -billboardWidth / 2, 0, 0)
+			nameSection.Position = UDim2.fromOffset(0, 0)  -- top-left
 			nameSection.BackgroundTransparency = 1
 			nameSection.Parent = fullBillboard
 
-			-- icon
-			local icon = Instance.new("ImageLabel")
-			icon.Size = UDim2.fromOffset(28, 30)
-			icon.Position = UDim2.fromOffset(13, 3)
-			icon.BackgroundTransparency = 1
-			icon.Image = env.funcs.getstats("player", char).icon or ""
-			icon.Parent = nameSection
-
-			-- display name
 			local displayname = Instance.new("TextLabel")
-			displayname.Size = UDim2.fromOffset(billboardWidth, 18)
-			displayname.Position = UDim2.fromOffset(46, 2)
+			displayname.Size = UDim2.fromOffset(billboardWidth - 36, 18)  -- leave room for icon
+			displayname.Position = UDim2.fromOffset(0, 2)
 			displayname.BackgroundTransparency = 1
 			displayname.Text = player.DisplayName
 			displayname.Font = Enum.Font.FredokaOne
@@ -508,10 +501,9 @@ local function setupplayeresp(state)
 			border1.Thickness = 2
 			border1.Parent = displayname
 
-			-- username
 			local username = Instance.new("TextLabel")
-			username.Size = UDim2.fromOffset(billboardWidth, 14)
-			username.Position = UDim2.fromOffset(46, 19)
+			username.Size = UDim2.fromOffset(billboardWidth - 36, 14)
+			username.Position = UDim2.fromOffset(0, 19)
 			username.BackgroundTransparency = 1
 			username.Text = "(@" .. player.Name .. ")"
 			username.Font = Enum.Font.FredokaOne
@@ -524,10 +516,17 @@ local function setupplayeresp(state)
 			border2.Color = Color3.fromRGB(255, 255, 255)
 			border2.Thickness = 2
 			border2.Parent = username
+			
+			local icon = Instance.new("ImageLabel")
+			icon.Size = UDim2.fromOffset(28, 30)
+			icon.Position = UDim2.fromOffset(billboardWidth - 32, 3)
+			icon.BackgroundTransparency = 1
+			icon.Image = env.funcs.getstats("player", char).icon or ""
+			icon.Parent = nameSection
 
 			local invSection = Instance.new("Frame")
 			invSection.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			invSection.Position = UDim2.new(0.5, -billboardWidth / 2, 1, -billboardHeight)
+			invSection.Position = UDim2.fromOffset(0, totalBillboardHeight - billboardHeight)  -- bottom-left
 			invSection.BackgroundTransparency = 1
 			invSection.Parent = fullBillboard
 
@@ -583,7 +582,7 @@ local function setupplayeresp(state)
 			
 			local sideSection = Instance.new("Frame")
 			sideSection.Size = UDim2.fromOffset(sideSectionWidth, sideSectionHeight)
-			sideSection.Position = UDim2.fromOffset(billboardWidth + 16, (230 / 2) - (sideSectionHeight / 2))
+			sideSection.Position = UDim2.fromOffset(billboardWidth + 16, (totalBillboardHeight / 2) - (sideSectionHeight / 2))
 			sideSection.BackgroundTransparency = 1
 			sideSection.Parent = fullBillboard
 
