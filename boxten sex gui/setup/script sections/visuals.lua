@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 3
+local version = 4
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -623,7 +623,7 @@ local function setupplayeresp(state)
 			healthRowLayout.Parent = healthRow
 
 			local healthlabel = Instance.new("TextLabel")
-			healthlabel.Size = UDim2.fromOffset(48, 13)
+			healthlabel.Size = UDim2.fromOffset(46, 13)
 			healthlabel.BackgroundTransparency = 1
 			healthlabel.Text = "Health:"
 			healthlabel.Font = Enum.Font.FredokaOne
@@ -641,7 +641,7 @@ local function setupplayeresp(state)
 			local heartIcons = {}
 			for i = 1, 4 do
 				local heart = Instance.new("ImageLabel")
-				heart.Size = UDim2.fromOffset(13, 13)
+				heart.Size = UDim2.fromOffset(15, 15)
 				heart.BackgroundTransparency = 1
 				heart.Image = HEART_ICON
 				heart.ImageTransparency = 1
@@ -683,7 +683,7 @@ local function setupplayeresp(state)
 			local function updateStamina()
 				local max = staminaVal and staminaVal.Value or "?"
 				local current = currentStaminaVal and currentStaminaVal.Value or "?"
-				staminalabel.Text = "Stamina: " .. tostring(current) .. "/" .. tostring(max)
+				staminalabel.Text = "Stamina: " .. tostring(math.round(current)) .. "/" .. tostring(max)
 			end
 
 			updateStamina()
@@ -768,12 +768,9 @@ local function setupplayeresp(state)
 
 			updateChasing()
 
-			local plrfolder = env.stuf.plrfolder:FindFirstChild(player.Name)
-			if plrfolder then
-				plrfolder:GetAttributeChangedSignal("twistedschasing"):Connect(function()
-					updateChasing()
-				end)
-			end
+			player:GetAttributeChangedSignal("ChaseCount"):Connect(function()
+				updateChasing()
+			end)
 
 			-- tapes
 			local tapeslabel = addSideText("Tapes: ?", espsettings.colors.player, 13)
@@ -786,18 +783,9 @@ local function setupplayeresp(state)
 
 			updateTapes()
 
-			if plrfolder then
-				local tapesValue = plrfolder:FindFirstChild("tapescollected")
-				if tapesValue then
-					tapesValue.Changed:Connect(updateTapes)
-				end
-
-				plrfolder.ChildAdded:Connect(function(child)
-					if child.Name == "tapescollected" then
-						child.Changed:Connect(updateTapes)
-						updateTapes()
-					end
-				end)
+			local tapesValue = env.stuf.gameinfo:FindFirstChild("PlayerStats"):FindFirstChild(player.Name):FindFirstChild("SurvivalPoints").Value
+			if tapesValue then
+				tapesValue.Changed:Connect(updateTapes)
 			end
 		end
 
