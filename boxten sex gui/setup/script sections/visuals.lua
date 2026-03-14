@@ -756,6 +756,49 @@ local function setupplayeresp(state)
 					end
 				end)
 			end
+			
+			-- twisteds chasing
+			local chasinglabel = addSideText("Chasing: ?", espsettings.colors.player, 13)
+
+			local function updateChasing()
+				local stats = env.funcs.getstats("player", char)
+				local val = stats and stats.twistedschasing
+				chasinglabel.Text = "Chasing: " .. (val ~= nil and tostring(val) or "?")
+			end
+
+			updateChasing()
+
+			local plrfolder = env.stuf.plrfolder:FindFirstChild(player.Name)
+			if plrfolder then
+				plrfolder:GetAttributeChangedSignal("twistedschasing"):Connect(function()
+					updateChasing()
+				end)
+			end
+
+			-- tapes
+			local tapeslabel = addSideText("Tapes: ?", espsettings.colors.player, 13)
+
+			local function updateTapes()
+				local stats = env.funcs.getstats("player", char)
+				local val = stats and stats.tapescollected
+				tapeslabel.Text = "Tapes: " .. (val ~= nil and tostring(val) or "?")
+			end
+
+			updateTapes()
+
+			if plrfolder then
+				local tapesValue = plrfolder:FindFirstChild("tapescollected")
+				if tapesValue then
+					tapesValue.Changed:Connect(updateTapes)
+				end
+
+				plrfolder.ChildAdded:Connect(function(child)
+					if child.Name == "tapescollected" then
+						child.Changed:Connect(updateTapes)
+						updateTapes()
+					end
+				end)
+			end
 		end
 
 		if player.Character then onchar(player.Character) end
