@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 7
+local version = 8
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -471,11 +471,9 @@ local function setupplayeresp(state)
 			billboard.Parent = hrp
 			esphandler.player.ui[player.Name] = billboard
 			
-			-- resize billboard to fit name row above slots
 			local nameRowHeight = 36
 			billboard.Size = UDim2.fromOffset(billboardWidth, billboardHeight + nameRowHeight)
 
-			-- shift slot positions down to make room for name row
 			for i, pos in ipairs(positions) do
 				positions[i] = UDim2.fromOffset(pos.X.Offset, pos.Y.Offset + nameRowHeight)
 			end
@@ -490,29 +488,37 @@ local function setupplayeresp(state)
 
 			-- display name
 			local displayname = Instance.new("TextLabel")
-			displayname.Size = UDim2.fromOffset(billboardWidth - 45, 18)
+			displayname.Size = UDim2.fromOffset(billboardWidth, 18)
 			displayname.Position = UDim2.fromOffset(38, 2)
 			displayname.BackgroundTransparency = 1
 			displayname.Text = player.DisplayName
-			displayname.Font = Enum.Font.GothamBold
+			displayname.Font = Enum.Font.FredokaOne
 			displayname.TextSize = 13
-			displayname.TextColor3 = Color3.new(1, 1, 1)
+			displayname.TextColor3 = espsettings.colors.player
 			displayname.TextXAlignment = Enum.TextXAlignment.Left
-			displayname.TextTruncate = Enum.TextTruncate.AtEnd
 			displayname.Parent = billboard
+			
+			local border = Instance.new("UIStroke")
+			border.Color = Color3.fromRGB(255, 255, 255)
+			border.Thickness = 1
+			border.Parent = displayname
 
 			-- username
 			local username = Instance.new("TextLabel")
-			username.Size = UDim2.fromOffset(billboardWidth - 45, 14)
+			username.Size = UDim2.fromOffset(billboardWidth, 14)
 			username.Position = UDim2.fromOffset(38, 19)
 			username.BackgroundTransparency = 1
 			username.Text = "(@" .. player.Name .. ")"
-			username.Font = Enum.Font.Gotham
+			username.Font = Enum.Font.FredokaOne
 			username.TextSize = 11
-			username.TextColor3 = Color3.fromRGB(200, 200, 200)
+			username.TextColor3 = espsettings.colors.player
 			username.TextXAlignment = Enum.TextXAlignment.Left
-			username.TextTruncate = Enum.TextTruncate.AtEnd
 			username.Parent = billboard
+			
+			local border = Instance.new("UIStroke")
+			border.Color = Color3.fromRGB(255, 255, 255)
+			border.Thickness = 1
+			border.Parent = username
 			
 			-- inventory
 			for i = 1, 3 do
