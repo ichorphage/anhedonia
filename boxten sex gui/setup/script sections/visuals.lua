@@ -577,7 +577,7 @@ local function setupplayeresp(state)
 			
 			local sideBillboard = Instance.new("BillboardGui")
 			sideBillboard.Size = UDim2.fromOffset(120, 80)
-			sideBillboard.StudsOffset = Vector3.new(3.5, 0, 0)
+			sideBillboard.StudsOffset = Vector3.new(3.3, 0, 0)
 			sideBillboard.AlwaysOnTop = true
 			sideBillboard.Adornee = hrp
 			sideBillboard.Parent = hrp
