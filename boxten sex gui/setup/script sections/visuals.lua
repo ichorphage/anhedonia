@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 5
+local version = 6
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -464,7 +464,7 @@ local function setupplayeresp(state)
 			esphandler.player.ui[player.Name] = billboards
 
 			local fullBillboard = Instance.new("BillboardGui")
-			fullBillboard.Size = UDim2.fromOffset(300, 160)
+			fullBillboard.Size = UDim2.fromOffset(300, 230)
 			fullBillboard.StudsOffset = Vector3.new(0, 0, 0)
 			fullBillboard.AlwaysOnTop = true
 			fullBillboard.Adornee = hrp
