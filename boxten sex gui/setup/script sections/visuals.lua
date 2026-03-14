@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 17
+local version = 3
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -469,7 +469,7 @@ local function setupplayeresp(state)
 
 			local nameBillboard = Instance.new("BillboardGui")
 			nameBillboard.Size = UDim2.fromOffset(billboardWidth, nameRowHeight)
-			nameBillboard.StudsOffset = Vector3.new(0, -0.2, 0)
+			nameBillboard.StudsOffset = Vector3.new(0, -0.14, 0)
 			nameBillboard.AlwaysOnTop = true
 			nameBillboard.Adornee = head
 			nameBillboard.Parent = head
@@ -605,6 +605,141 @@ local function setupplayeresp(state)
 				stroke.Parent = label
 
 				return label
+			end
+			
+			local HEART_ICON = "rbxassetid://16790556042"
+			local maxHearts = 4
+
+			local healthRow = Instance.new("Frame")
+			healthRow.Size = UDim2.new(1, 0, 0, 15)
+			healthRow.BackgroundTransparency = 1
+			healthRow.LayoutOrder = 0
+			healthRow.Parent = sideBillboard
+
+			local heartLayout = Instance.new("UIListLayout")
+			heartLayout.FillDirection = Enum.FillDirection.Horizontal
+			heartLayout.Padding = UDim.new(0, 2)
+			heartLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			heartLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+			heartLayout.Parent = healthRow
+
+			local heartIcons = {}
+			for i = 1, 4 do
+				local heart = Instance.new("ImageLabel")
+				heart.Size = UDim2.fromOffset(13, 13)
+				heart.BackgroundTransparency = 1
+				heart.Image = HEART_ICON
+				heart.ImageTransparency = 1
+				heart.LayoutOrder = i
+				heart.Parent = healthRow
+				heartIcons[i] = heart
+			end
+
+			local function updateHearts(current, max)
+				max = math.clamp(max, 3, 4)
+				for i = 1, 4 do
+					local heart = heartIcons[i]
+					if i <= max then
+						heart.ImageTransparency = (i <= current) and 0 or 0.4
+					else
+						heart.ImageTransparency = 1
+					end
+				end
+			end
+
+			local hum = char:WaitForChild("Humanoid", 10)
+			if hum then
+				updateHearts(hum.Health, hum.MaxHealth)
+
+				hum.HealthChanged:Connect(function(newHealth)
+					updateHearts(newHealth, hum.MaxHealth)
+				end)
+
+				hum:GetPropertyChangedSignal("MaxHealth"):Connect(function()
+					updateHearts(hum.Health, hum.MaxHealth)
+				end)
+			end
+
+			local staminalabel = addSideText("Stamina: ?/?", Color3.fromRGB(200, 200, 200), 11)
+
+			local staminaVal = char:FindFirstChild("Stamina")
+			local currentStaminaVal = char:FindFirstChild("CurrentStamina")
+
+			local function updateStamina()
+				local max = staminaVal and staminaVal.Value or "?"
+				local current = currentStaminaVal and currentStaminaVal.Value or "?"
+				staminalabel.Text = "Stamina: " .. tostring(current) .. "/" .. tostring(max)
+			end
+
+			updateStamina()
+
+			if staminaVal then
+				staminaVal.Changed:Connect(updateStamina)
+			end
+			if currentStaminaVal then
+				currentStaminaVal.Changed:Connect(updateStamina)
+			end
+
+			char.ChildAdded:Connect(function(child)
+				if child.Name == "Stamina" then
+					staminaVal = child
+					child.Changed:Connect(updateStamina)
+					updateStamina()
+				elseif child.Name == "CurrentStamina" then
+					currentStaminaVal = child
+					child.Changed:Connect(updateStamina)
+					updateStamina()
+				end
+			end)
+
+			local function getstealthvalue(character)
+				local stats = character:FindFirstChild("Stats")
+				if not stats then return nil end
+				local stealth = stats:FindFirstChild("Stealth")
+				local multiplier = stats:FindFirstChild("StealthMultiplier")
+				local actual = nil
+				if stealth and stealth:IsA("NumberValue") then
+					local base = stealth.Value
+					local mult = (multiplier and multiplier:IsA("NumberValue")) and multiplier.Value or 1
+					actual = base * mult
+				end
+				return actual
+			end
+
+			local stealthLabel = addSideText("Stealth: ?", Color3.fromRGB(200, 200, 200), 11)
+
+			local function updateStealth()
+				local val = getstealthvalue(char)
+				stealthLabel.Text = "Stealth: " .. (val ~= nil and string.format("%.1f", val) or "?")
+			end
+
+			updateStealth()
+
+			local stats = char:FindFirstChild("Stats")
+			local function connectStealthStats(statsFolder)
+				local stealth = statsFolder:FindFirstChild("Stealth")
+				local multiplier = statsFolder:FindFirstChild("StealthMultiplier")
+
+				if stealth then stealth.Changed:Connect(updateStealth) end
+				if multiplier then multiplier.Changed:Connect(updateStealth) end
+
+				statsFolder.ChildAdded:Connect(function(child)
+					if child.Name == "Stealth" or child.Name == "StealthMultiplier" then
+						child.Changed:Connect(updateStealth)
+						updateStealth()
+					end
+				end)
+			end
+
+			if stats then
+				connectStealthStats(stats)
+			else
+				char.ChildAdded:Connect(function(child)
+					if child.Name == "Stats" then
+						connectStealthStats(child)
+						updateStealth()
+					end
+				end)
 			end
 		end
 
