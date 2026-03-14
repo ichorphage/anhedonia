@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 5
+local version = 6
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -447,20 +447,25 @@ local function setupplayeresp(state)
 			local slotImages = {}
 			local PLACEHOLDER = "rbxassetid://138028861815970"
 
-			local slotSize = 13
+			local slotSize = 30
 			local gap = 4
 			local totalWidth = (slotSize * 3) + (gap * 2)  -- 47px total
 			local startX = -(totalWidth / 2) + (slotSize / 2)  -- left-align from center
 
+			local billboardWidth = totalWidth + 10
+			local billboardHeight = slotSize + 10
+			local centerX = billboardWidth / 2
+			local centerY = billboardHeight / 2
+
 			local positions = {
-				UDim2.fromOffset(startX, 0),                    -- -17
-				UDim2.fromOffset(startX + slotSize + gap, 0),   -- 0
-				UDim2.fromOffset(startX + (slotSize + gap) * 2, 0), -- 17
+				UDim2.fromOffset(centerX + startX,                        centerY),
+				UDim2.fromOffset(centerX + startX + slotSize + gap,       centerY),
+				UDim2.fromOffset(centerX + startX + (slotSize + gap) * 2, centerY),
 			}
-			
+
 			local billboard = Instance.new("BillboardGui")
-			billboard.Size = UDim2.fromOffset(totalWidth + 10, 20)
-			billboard.StudsOffset = Vector3.new(0, -3, 0)
+			billboard.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
+			billboard.StudsOffset = Vector3.new(0, -3.5, 0)
 			billboard.AlwaysOnTop = true
 			billboard.Adornee = hrp
 			billboard.Parent = hrp
