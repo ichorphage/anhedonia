@@ -60,44 +60,6 @@ end
 
 local section = {
 	version = version,
-
-	{ type = "separator", title = "seperator" },
-	{ type = "button", title = "button", desc = "debug",
-		callback = function() 
-			print("button")
-		end
-	},
-	{ type = "toggle", title = "toggle", desc = "debug",
-		callback = function(state) 
-			print("toggle " .. tostring(state))
-		end
-	},
-	{ type = "slider", title = "slider", desc = "debug",
-		callback = function(val) 
-			print("slider " .. tostring(val))
-		end
-	},
-	{ type = "dropdown", title = "dropdown", desc = "debug",
-		options = {"option1", "option2", "option3"},
-		callback = function(val) 
-			print("dropdown " .. tostring(val))
-		end
-	},
-	{ type = "input", title = "input", desc = "debug",
-		callback = function(val) 
-			print("input " .. tostring(val))
-		end
-	},
-	{ type = "input and button", title = "input and button", desc = "debug",
-		callback = function(val) 
-			print("input and button " .. tostring(val))
-		end
-	},
-	{ type = "input and toggle", title = "input and toggle", desc = "debug",
-		callback = function(val) 
-			print("input and toggle " .. tostring(val))
-		end
-	},
 	{ type = "separator", title = "Community" },
 	{ type = "button", title = "Join Noxious Discord", desc = ("Copies our server's Discord invite link. (Members: %s)"):format(getmembercount("m2K7UXcyZj")),
 		commandcat = "Main",
