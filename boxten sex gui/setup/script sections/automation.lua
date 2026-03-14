@@ -131,23 +131,29 @@ local function autoteleporttoelevator(state)
 		local condition = autoteleporttoelevatorconditions
 
 		if condition == "Instant" or not condition then
-			toelevator(nil, "tp")
+			if env.stuf.actionqueuerunning then
+				spwn(function()
+					while env.stuf.actionqueuerunning do t() end
+					toelevator(nil, "tp")
+				end)
+			else
+				toelevator(nil, "tp")
+			end
 
 		elseif condition == "Everyone at elevator" then
 			spwn(function()
 				while autoteleportingtoelevator and panic.Value do
-					if checkeveryoneatelevaor() then
+					if not env.stuf.actionqueuerunning and checkeveryoneatelevaor() then
 						toelevator(nil, "tp")
 						break
 					end
 					t()
 				end
 			end)
-
 		elseif condition == "At the last second" then
 			spwn(function()
 				while autoteleportingtoelevator and panic.Value do
-					if timer and timer.Value <= 1 then
+					if not env.stuf.actionqueuerunning and timer and timer.Value <= 1 then
 						toelevator(nil, "tp")
 						break
 					end
