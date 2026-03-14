@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 4
+local version = 5
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -623,7 +623,7 @@ local function setupplayeresp(state)
 			healthRowLayout.Parent = healthRow
 
 			local healthlabel = Instance.new("TextLabel")
-			healthlabel.Size = UDim2.fromOffset(46, 13)
+			healthlabel.Size = UDim2.fromOffset(44, 13)
 			healthlabel.BackgroundTransparency = 1
 			healthlabel.Text = "Health:"
 			healthlabel.Font = Enum.Font.FredokaOne
@@ -783,7 +783,7 @@ local function setupplayeresp(state)
 
 			updateTapes()
 
-			local tapesValue = env.stuf.gameinfo:FindFirstChild("PlayerStats"):FindFirstChild(player.Name):FindFirstChild("SurvivalPoints").Value
+			local tapesValue = env.stuf.gameinfo:FindFirstChild("PlayerStats"):FindFirstChild(player.Name):FindFirstChild("SurvivalPoints")
 			if tapesValue then
 				tapesValue.Changed:Connect(updateTapes)
 			end
