@@ -706,29 +706,43 @@ local function getitemslot(stats, itemname)
 	end
 end
 
-local function tryuseitem(stats)
+local function tryuseitem(stats, forcecategories)
 	t(0.2)
 
 	local extracting = stats.extracting
-	local twistedschasing = stats.twistedschasing or 0
+	local twistedschasing = (stats.twistedschasing or 0) > 0
 	local health = env.stuf.char:FindFirstChildOfClass("Humanoid").Health
 	local lowhealth = health <= 1
 
 	local priority = {}
 
-	if extracting and not env.funcs.veemoteactive() then
-		for _, item in ipairs(autouseitemcats.onmachine) do table.insert(priority, item) end
-	end
-	if lowhealth then
-		for _, item in ipairs(autouseitemcats.heal) do table.insert(priority, item) end
-	end
-	if twistedschasing > 0 then
-		for _, item in ipairs(autouseitemcats.stamina) do table.insert(priority, item) end
+	if forcecategories then
+		for _, item in ipairs(forcecategories) do
+			table.insert(priority, item)
+		end
+	else
+		if extracting and not env.funcs.veemoteactive() then
+			for _, item in ipairs(autouseitemcats.onmachine) do table.insert(priority, item) end
+		end
+		if lowhealth then
+			for _, item in ipairs(autouseitemcats.heal) do table.insert(priority, item) end
+		end
+		if twistedschasing then
+			for _, item in ipairs(autouseitemcats.stamina) do table.insert(priority, item) end
+		end
+		if #priority == 0 and autouseitemsbehavior == "Instant" then
+			for _, item in ipairs(autouseitemcats.onmachine) do table.insert(priority, item) end
+			for _, item in ipairs(autouseitemcats.heal) do table.insert(priority, item) end
+			for _, item in ipairs(autouseitemcats.speed) do table.insert(priority, item) end
+			for _, item in ipairs(autouseitemcats.stamina) do table.insert(priority, item) end
+		end
 	end
 
 	for _, itemname in ipairs(priority) do
 		if autouseitemsblacklist[itemname] then continue end
-		if (itemname == "HealthKit" or itemname == "Bandage") and not lowhealth then continue end
+		if not forcecategories then
+			if (itemname == "HealthKit" or itemname == "Bandage") and not lowhealth then continue end
+		end
 		local slot = getitemslot(stats, itemname)
 		if slot then
 			env.funcs.box("attempting to use " .. itemname .. " in inventory slot " .. slot)
@@ -781,20 +795,19 @@ local function autouseitems(state)
 				table.insert(autouseitemsconns, slot.Changed:Connect(oninventorychanged))
 			end
 		end
+		table.insert(autouseitemsconns, inventory.ChildAdded:Connect(function(child)
+			if child.Name:find("Slot") then
+				table.insert(autouseitemsconns, child.Changed:Connect(oninventorychanged))
+				oninventorychanged()
+			end
+		end))
 	end
 
 	table.insert(autouseitemsconns, rst.StoryEvents.Spotted.OnClientEvent:Connect(function()
 		if not autousingitems then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
-		for _, itemname in ipairs(autouseitemcats.speed) do
-			if autouseitemsblacklist[itemname] then continue end
-			local slot = getitemslot(stats, itemname)
-			if slot then
-				env.funcs.useitem(slot)
-				return
-			end
-		end
+		tryuseitem(stats, autouseitemcats.speed)
 		if autouseitemsbehavior == "Instant" then tryuseitem(stats) end
 	end))
 
@@ -809,14 +822,8 @@ local function autouseitems(state)
 		if val >= 20 then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
-		for _, itemname in ipairs(autouseitemcats.stamina) do
-			if autouseitemsblacklist[itemname] then continue end
-			local slot = getitemslot(stats, itemname)
-			if slot then
-				env.funcs.useitem(slot)
-				return
-			end
-		end
+		-- stamina low: try stamina items specifically first
+		tryuseitem(stats, autouseitemcats.stamina)
 		if autouseitemsbehavior == "Instant" then tryuseitem(stats) end
 	end))
 end
