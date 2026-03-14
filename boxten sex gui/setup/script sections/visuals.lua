@@ -380,7 +380,7 @@ local function setupplayeresp(state)
 	if not state then return end
 
 	local function apply(player)
-		if player == env.stuf.plr then return end
+		-- if player == env.stuf.plr then return end
 		if not env.stuf.plrfolder:FindFirstChild(player.Name) then return end
 
 		local function onchar(char)
@@ -535,9 +535,9 @@ local function setuptwistedobstacleesp(state)
 	if esphandler.twistedobstacle.conn then esphandler.twistedobstacle.conn:Disconnect() esphandler.twistedobstacle.conn = nil end
 	if esphandler.twistedobstacle.blotconn then esphandler.twistedobstacle.blotconn:Disconnect() esphandler.twistedobstacle.blotconn = nil end
 	clearhls("twistedobstacle")
-	
+
 	if not state then return end
-	
+
 	spwn(function()
 		yield(function() return env.stuf.freearea end)
 
