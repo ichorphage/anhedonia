@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 6
+local version = 3
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -462,13 +462,17 @@ local function setupplayeresp(state)
 
 			local billboards = {}
 			esphandler.player.ui[player.Name] = billboards
+			
+			local sideSectionWidth = 120
+			local sideSectionHeight = 100
 
 			local fullBillboard = Instance.new("BillboardGui")
-			fullBillboard.Size = UDim2.fromOffset(300, 230)
+			fullBillboard.Size = UDim2.fromOffset(billboardWidth + sideSectionWidth + 16, 230)
 			fullBillboard.StudsOffset = Vector3.new(0, 0, 0)
 			fullBillboard.AlwaysOnTop = true
 			fullBillboard.Adornee = hrp
 			fullBillboard.Parent = hrp
+	
 			billboards.name = fullBillboard
 			billboards.inv = fullBillboard
 			billboards.side = fullBillboard
@@ -578,8 +582,8 @@ local function setupplayeresp(state)
 			end)
 			
 			local sideSection = Instance.new("Frame")
-			sideSection.Size = UDim2.fromOffset(120, 100)
-			sideSection.Position = UDim2.new(1, 8, 0.5, -50)
+			sideSection.Size = UDim2.fromOffset(sideSectionWidth, sideSectionHeight)
+			sideSection.Position = UDim2.fromOffset(billboardWidth + 16, (230 / 2) - (sideSectionHeight / 2))
 			sideSection.BackgroundTransparency = 1
 			sideSection.Parent = fullBillboard
 
