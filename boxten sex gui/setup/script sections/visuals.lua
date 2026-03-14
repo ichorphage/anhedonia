@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 12
+local version = 13
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -439,10 +439,6 @@ local function setupplayeresp(state)
 				end
 			end)
 
-			local hrp = char:WaitForChild("HumanoidRootPart", 10)
-			local inventory = char:WaitForChild("Inventory", 10)
-			if not hrp or not inventory then return end
-
 			local slots = {}
 			local slotImages = {}
 			local PLACEHOLDER = "rbxassetid://138028861815970"
@@ -462,19 +458,13 @@ local function setupplayeresp(state)
 				UDim2.fromOffset(centerX + startX + slotSize + gap,       centerY),
 				UDim2.fromOffset(centerX + startX + (slotSize + gap) * 2, centerY),
 			}
-
-			local billboard = Instance.new("BillboardGui")
-			billboard.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			billboard.StudsOffset = Vector3.new(0, -3.2, 0)
-			billboard.AlwaysOnTop = true
-			billboard.Adornee = hrp
-			billboard.Parent = hrp
-			esphandler.player.ui[player.Name] = billboard
 			
 			local nameRowHeight = 36
 			billboard.Size = UDim2.fromOffset(billboardWidth, billboardHeight + nameRowHeight)
 
 			local head = char:WaitForChild("Head", 10)
+			local hrp = char:WaitForChild("HumanoidRootPart", 10)
+			local inventory = char:WaitForChild("Inventory", 10)
 			if not hrp or not head or not inventory then return end
 
 			local billboards = {}
@@ -482,7 +472,6 @@ local function setupplayeresp(state)
 
 			local nameBillboard = Instance.new("BillboardGui")
 			nameBillboard.Size = UDim2.fromOffset(billboardWidth, nameRowHeight)
-			nameBillboard.StudsOffset = Vector3.new(0, 0.2, 0)
 			nameBillboard.AlwaysOnTop = true
 			nameBillboard.Adornee = head
 			nameBillboard.Parent = head
@@ -582,7 +571,7 @@ local function setupplayeresp(state)
 				end)
 			end
 
-			billboard.Destroying:Connect(function()
+			invBillboard.Destroying:Connect(function()
 				for _, conn in pairs(slotConns) do
 					if conn then conn:Disconnect() end
 				end
