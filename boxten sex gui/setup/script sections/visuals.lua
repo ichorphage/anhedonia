@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 6
+local version = 7
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -577,7 +577,7 @@ local function setupplayeresp(state)
 			
 			local sideBillboard = Instance.new("BillboardGui")
 			sideBillboard.Size = UDim2.fromOffset(120, 80)
-			sideBillboard.StudsOffset = Vector3.new(3.3, 0, 0)
+			sideBillboard.StudsOffset = Vector3.new(3.5, 0, 0)
 			sideBillboard.AlwaysOnTop = true
 			sideBillboard.Adornee = hrp
 			sideBillboard.Parent = hrp
@@ -617,13 +617,13 @@ local function setupplayeresp(state)
 
 			local healthRowLayout = Instance.new("UIListLayout")
 			healthRowLayout.FillDirection = Enum.FillDirection.Horizontal
-			healthRowLayout.Padding = UDim.new(0, 4)
+			healthRowLayout.Padding = UDim.new(0, 2)
 			healthRowLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			healthRowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 			healthRowLayout.Parent = healthRow
 
 			local healthlabel = Instance.new("TextLabel")
-			healthlabel.Size = UDim2.fromOffset(44, 13)
+			healthlabel.Size = UDim2.fromOffset(40, 13)
 			healthlabel.BackgroundTransparency = 1
 			healthlabel.Text = "Health:"
 			healthlabel.Font = Enum.Font.FredokaOne
@@ -773,12 +773,45 @@ local function setupplayeresp(state)
 			end)
 
 			-- tapes
-			local tapeslabel = addSideText("Tapes: ?", espsettings.colors.player, 13)
+			local tapesRow = Instance.new("Frame")
+			tapesRow.Size = UDim2.new(1, 0, 0, 13)
+			tapesRow.BackgroundTransparency = 1
+			tapesRow.Parent = sideBillboard
+
+			local tapesRowLayout = Instance.new("UIListLayout")
+			tapesRowLayout.FillDirection = Enum.FillDirection.Horizontal
+			tapesRowLayout.Padding = UDim.new(0, 4)
+			tapesRowLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			tapesRowLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+			tapesRowLayout.Parent = tapesRow
+
+			local tapesIcon = Instance.new("ImageLabel")
+			tapesIcon.Size = UDim2.fromOffset(14, 14)
+			tapesIcon.BackgroundTransparency = 1
+			tapesIcon.Image = "rbxassetid://138028861815970"
+			tapesIcon.LayoutOrder = 0
+			tapesIcon.Parent = tapesRow
+
+			local tapescount = Instance.new("TextLabel")
+			tapescount.Size = UDim2.fromOffset(40, 13)
+			tapescount.BackgroundTransparency = 1
+			tapescount.Text = "?"
+			tapescount.Font = Enum.Font.FredokaOne
+			tapescount.TextSize = 13
+			tapescount.TextColor3 = espsettings.colors.player
+			tapescount.TextXAlignment = Enum.TextXAlignment.Left
+			tapescount.LayoutOrder = 1
+			tapescount.Parent = tapesRow
+
+			local tapesstroke = Instance.new("UIStroke")
+			tapesstroke.Color = Color3.fromRGB(255, 255, 255)
+			tapesstroke.Thickness = 2
+			tapesstroke.Parent = tapescount
 
 			local function updateTapes()
 				local stats = env.funcs.getstats("player", char)
 				local val = stats and stats.tapescollected
-				tapeslabel.Text = "Tapes: " .. (val ~= nil and tostring(val) or "?")
+				tapescount.Text = val ~= nil and tostring(val) or "?"
 			end
 
 			updateTapes()
