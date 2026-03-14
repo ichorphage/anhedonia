@@ -79,7 +79,7 @@ local autoteleportingtoelevator = false
 function getelevatorcframe(ele, nearshop)
 	local placednearshop = ele.CFrame * CFrame.new(-6, -10.5, 0) * CFrame.Angles(0, math.rad(-90), 0)
 	local center = ele.CFrame * CFrame.new(0, -10.5, 0) * CFrame.Angles(0, math.rad(-90), 0)
-	
+
 	return nearshop and placednearshop or center
 end
 
@@ -275,7 +275,7 @@ function handlecm()
 			if not acmalreadypressed then
 				t(0.03)
 				local menu = env.stuf.plrgui.ScreenGui:FindFirstChild("Menu")
-				
+
 				firesignal(menu.Calibrate.MouseButton1Down)
 				firesignal(menu.Calibrate.MouseButton1Up)
 				firesignal(menu.Calibrate.MouseButton1Click)
@@ -702,7 +702,7 @@ end
 
 local function tryuseitem(stats)
 	t(0.2)
-	
+
 	local extracting = stats.extracting
 	local twistedschasing = stats.twistedschasing or 0
 	local health = env.stuf.char:FindFirstChildOfClass("Humanoid").Health
@@ -968,7 +968,7 @@ local function dobassieboneonce()
 	if bassieboneconn then
 		bassieboneconn:Disconnect()
 		bassieboneconn = nil
-  end
+	end
 end
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -1171,7 +1171,7 @@ local function autofarm(state)
 		local tplooppause = false
 
 		env.stuf.afe.tploopthread = spwn(function()
-		env.funcs.box("machine teleport loop started")
+			env.funcs.box("machine teleport loop started")
 
 			while env.stuf.afe.running do
 				if not tplooppause then
@@ -1247,16 +1247,21 @@ local function autofarm(state)
 
 		local stoppedextractingconn = env.stuf.char.Decoding.Changed:Connect(function(val)
 			if not val then
-				env.funcs.box("player stopped extracting, firing nearby machine prompts")
+				if not env.funcs.getgamestat().panicmode then
+					env.funcs.box("player stopped extracting, firing nearby machine prompts")
 
-				t(0.5)
-				if env.stuf.machines then
-					for _, machine in ipairs(env.stuf.machines:GetChildren()) do
-						for _ = 1, 3 do
-							fireproximityprompt(env.funcs.getstats("machine", machine).prox)
-							t(1)
+					t(0.5)
+					if env.stuf.machines then
+						for _, machine in ipairs(env.stuf.machines:GetChildren()) do
+							for _ = 1, 3 do
+								fireproximityprompt(env.funcs.getstats("machine", machine).prox)
+								t(1)
+							end
 						end
 					end
+				else
+					env.funcs.box("player stopped extracting and panic mode is on, teleporting to elevator")
+					toelevator(nil, "tp")
 				end
 			end
 		end)
@@ -1273,7 +1278,8 @@ local function autofarm(state)
 		end)
 		table.insert(env.stuf.afe.conns, factiveconn)
 
-		local obstacledetectedconn = env.stuf.roomfolder.Changed:Connect(function()
+		local obstacledetectedconn
+	 	obstacledetectedconn = env.stuf.roomfolder.Changed:Connect(function()
 			local freeareaconn, currentroomconn
 			local function disconnect()
 				obstacledetectedconn:Disconnect()
@@ -1450,7 +1456,7 @@ local section = {
 		default = autoteleporttoelevatorconditions,
 		canbeempty = false,
 		multiselect = false,
-		
+
 		callback = function(selected)
 			autoteleporttoelevatorconditions = selected
 			if autoteleportingtoelevator then
@@ -1616,15 +1622,15 @@ local section = {
 	},
 	{ type = "toggle", title = "Auto use items", desc = "Automatically uses your item when available.",
 		commandcat = "Automation",
-		
+
 		encommands = {"enableautouseitems"},
 		enaliases = {"eaui"},
 		encommanddesc = "Enables auto use items",
-		
+
 		discommands = {"disableautouseitems"},
 		disaliases = {"daui"},
 		discommanddesc = "Disables auto use items",
-		
+
 		callback = function(state)
 			autouseitems(state)
 		end
@@ -1633,7 +1639,7 @@ local section = {
 		options = {"Instant", "When necessary", "1 second delay"},
 		default = "Instant",
 		canbeempty = false,
-		
+
 		callback = function(selected)
 			autouseitemsbehavior = selected
 			if autousingitems then
@@ -1649,7 +1655,7 @@ local section = {
 			"Skill Check Candy", "Smoke Bomb", "Speed Candy", "Stealth Candy", "Stopwatch", 
 			"Valve"},
 		multiselect = true,
-		
+
 		callback = function(selected)
 			autouseitemsblacklist = {}
 			for _, label in ipairs(selected) do
