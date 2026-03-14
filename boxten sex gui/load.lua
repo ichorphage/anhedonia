@@ -163,10 +163,12 @@ spwn(function()
 			[Enum.MessageType.MessageWarning] = "warn",
 			[Enum.MessageType.MessageError]   = "err",
 		})[messageType] or ""
-		
-		message = message:gsub("%s*Stack Begin.+Stack End", "")
-		message = message:gsub("^.-%:%d+%: ", "")
-		message = message:gsub("%s*$", "")
+
+		if not message:find("[Shrimpo]: ") then
+			message = message:gsub("%s*Stack Begin.+Stack End", "")
+			message = message:gsub("^.-%:%d+%: ", "")
+			message = message:gsub("%s*$", "")
+		end
 
 		bottomleft(message, prefix)
 	end)
