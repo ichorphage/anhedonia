@@ -1746,7 +1746,7 @@ local function addextraunits()
 
 	if extraunitconn then return end
 	extraunitconn = rs.Heartbeat:Connect(function()
-		if extrawalkspeedunits < 0 and extrarunspeedunits < 0 then 
+		if extrawalkspeedunits == 0 and extrarunspeedunits == 0 then 
 			extraunitconn:Disconnect() 
 			extraunitconn = nil 
 		end
