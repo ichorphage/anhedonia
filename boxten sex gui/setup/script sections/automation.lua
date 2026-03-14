@@ -1099,6 +1099,26 @@ local function autopickupallextitems(state) autoactions.autopickupallextitems.en
 local function autopickupalleventitems(state) autoactions.autopickupalleventitems.enabled = state hookaction(autoactions.autopickupalleventitems) end
 local function autoencountertwisteds(state) autoactions.autoencountertwisteds.enabled = state hookaction(autoactions.autoencountertwisteds) end
 
+local actiontitlemap = {
+	["Auto pick up all items"]              = "Auto pick up all items",
+	["Auto pick up all event items"]        = "Auto pick up all event items",
+	["Auto pick up all Research Capsules"]  = "Auto pick up all Research Capsules",
+	["Auto pick up all Tapes"]              = "Auto pick up all Tapes",
+	["Auto pick up all heals"]              = "Auto pick up all heals",
+	["Auto pick up all extraction items"]   = "Auto pick up all extraction items",
+	["Auto encounter Twisteds"]             = "Auto encounter Twisteds",
+}
+
+local allactiontitles = {
+	"Auto pick up all items",
+	"Auto pick up all event items",
+	"Auto pick up all Research Capsules",
+	"Auto pick up all Tapes",
+	"Auto pick up all heals",
+	"Auto pick up all extraction items",
+	"Auto encounter Twisteds",
+}
+
 -------------------------------------------------------------------------------------------------------------------------------
 
 local autoforcequitmachineconn
@@ -1424,21 +1444,30 @@ local section = {
 		default = env.stuf.afe.actiontrigger,
 		canbeempty = false,
 		multiselect = true,
-
-		callback = function(selected) 
+		
+		callback = function(selected)
 			env.stuf.afe.actiontrigger = selected
-		end 
+			performactionstriggers = selected
+
+			for _, action in pairs(autoactions) do
+				if action.enabled then hookaction(action) end
+			end
+		end
 	},
 	{ type = "dropdown", title = "Automate actions", desc = "Automatically performs the selected actions while autofarming.", 
 		options = {"Auto pick up all items", "Auto pick up all event items", "Auto pick up all Research Capsules",
 			"Auto pick up all Tapes", "Auto pick up all heals", "Auto pick up all extraction items", "Auto encounter Twisteds"},
 		default = env.stuf.afe.actions,
 		multiselect = true,
-
-		callback = function(selected) 
+		
+		callback = function(selected)
 			env.stuf.afe.actions = selected
-			performactionstriggers = selected
-		end 
+
+			for _, title in ipairs(allactiontitles) do
+				local shouldenable = table.find(selected, title) ~= nil
+				env.essentials.library.update(actiontitlemap[title], shouldenable)
+			end
+		end
 	},
 
 	{ type = "separator", title = "Teleports" },
