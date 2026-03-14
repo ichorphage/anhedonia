@@ -667,7 +667,7 @@ local autouseitmsnamemap = {
 	["Chocolate"]              = "Chocolate",
 	["Eject Button"]           = "EjectButton",
 	["Extraction Speed Candy"] = "ExtractionSpeedCandy",
-	["Gumballs"]               = "Gumballs",
+	["Gumballs"]               = "Gumball",
 	["Health Kit"]             = "HealthKit",
 	["Instructions"]           = "Instructions",
 	["Jawbreaker"]             = "Jawbreaker",
@@ -685,7 +685,7 @@ local autouseitmsnamemap = {
 local autouseitemcats = {
 	onmachine = {
 		"ExtractionSpeedCandy", "SkillCheckCandy", "Valve", "JumperCable",
-		"StealthCandy", "Jawbreaker", "Gumballs", "Instructions",
+		"StealthCandy", "Jawbreaker", "Gumball", "Instructions",
 	},
 	heal = {
 		"Bandage", "HealthKit",
