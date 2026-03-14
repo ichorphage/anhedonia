@@ -385,7 +385,7 @@ local function bubble(parent, pos, img)
 	local itemframe, itemimage
 
 	if parent and pos then
-		itemframe = lib.makecoolframe(UDim2.fromOffset(13, 13), parent, nil, nil, pos, true)
+		itemframe = lib.makecoolframe(UDim2.fromOffset(30, 30), parent, nil, nil, pos, true)
 
 		itemimage = Instance.new("ImageLabel")
 		itemimage.BackgroundTransparency = 1
@@ -446,7 +446,7 @@ local function setupplayeresp(state)
 			local billboard = Instance.new("BillboardGui")
 			billboard.Name = "aamInventoryESP"
 			billboard.Size = UDim2.fromOffset(60, 20)
-			billboard.StudsOffset = Vector3.new(0, -2.5, 0)
+			billboard.StudsOffset = Vector3.new(0, -4, 0)
 			billboard.AlwaysOnTop = true
 			billboard.Adornee = hrp
 			billboard.Parent = hrp
@@ -470,7 +470,7 @@ local function setupplayeresp(state)
 
 			local function updateSlot(i, value)
 				if not slotImages[i] then return end
-				if value and value ~= "" then
+				if value and value ~= "None" then
 					slotImages[i].Image = PLACEHOLDER
 				else
 					slotImages[i].Image = ""
