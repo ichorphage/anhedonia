@@ -1209,7 +1209,20 @@ local function autofarm(state)
 						if not env.funcs.getgamestats().panicmode then
 							if env.funcs.getgamestats().flooractive then
 								if not env.funcs.getstats("player", env.stuf.char).extracting then
-									env.funcs.tomachine("tp")
+									local beingchased
+
+									for _, twisted in ipairs(env.stuf.twisteds:GetChildren()) do
+											if env.funcs.getstats("twisted", twisted).chasing == env.stuf.plr then
+												beingchased = true
+											end
+									end
+									
+									if not beingchased then
+										env.funcs.tomachine("tp")
+									else
+										env.funcs.pop("Player is being chased, teleporting to fake elevator instead of machine.")
+										toelevator(true, "tp")
+									end
 								else
 									env.funcs.pop("Player is extracting, cannot teleport to machine.")
 								end
