@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 8
+local version = 3
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -786,7 +786,8 @@ local function setupplayeresp(state)
 			tapesRowLayout.Parent = tapesRow
 
 			local tapesIcon = Instance.new("ImageLabel")
-			tapesIcon.Size = UDim2.fromOffset(15, 15)
+			tapesIcon.Size = UDim2.fromOffset(17, 17)
+			tapesIcon.Position = UDim2.fromOffset(0, 1)
 			tapesIcon.BackgroundTransparency = 1
 			tapesIcon.Image = "rbxassetid://138028861815970"
 			tapesIcon.LayoutOrder = 0
