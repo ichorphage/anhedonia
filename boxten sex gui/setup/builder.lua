@@ -10,7 +10,7 @@
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
 local builder = {}
-builder.version = 3
+builder.version = 4
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ local load = env.funcs.recursivels
 local maincat = env.funcs.recursivels("setup/script%20sections/main.lua", true)
 env.funcs.introconsolelog("\"Main\" section loaded. (" .. maincat.version .. ")")
 if maincat.version ~= env.expectedscriptversions.mainsection then
-	env.funcs.introconsolelog("The \"Main\" section is out of date. (" .. maincat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Main\" section is out of date. (" .. maincat.version .. " ≠ " .. env.expectedscriptversions.mainsection .. ")", "warn")
 end
 
 env.funcs.introprogress(62)
@@ -57,7 +57,7 @@ env.funcs.introprogress(62)
 local navigcat = env.funcs.recursivels("setup/script%20sections/navigation.lua", true)
 env.funcs.introconsolelog("\"Navigation\" section loaded. (" .. navigcat.version .. ")")
 if navigcat.version ~= env.expectedscriptversions.navigationsection then
-	env.funcs.introconsolelog("The \"Navigation\" section is out of date. (" .. navigcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Navigation\" section is out of date. (" .. navigcat.version .. " ≠ " .. env.expectedscriptversions.navigationsection .. ")", "warn")
 end
 
 env.funcs.introprogress(64)
@@ -66,7 +66,7 @@ env.stuf.visualssectionloaded = false
 local viscat = env.funcs.recursivels("setup/script%20sections/visuals.lua", true)
 env.funcs.introconsolelog("\"Visuals\" section loaded. (" .. viscat.version .. ")")
 if viscat.version ~= env.expectedscriptversions.visualssection then
-	env.funcs.introconsolelog("The \"Visuals\" section is out of date. (" .. viscat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Visuals\" section is out of date. (" .. viscat.version .. " ≠ " .. env.expectedscriptversions.visualssection .. ")", "warn")
 end
 env.stuf.visualssectionloaded = true
 
@@ -75,7 +75,7 @@ env.funcs.introprogress(66)
 local lpcat = env.funcs.recursivels("setup/script%20sections/local%20player.lua", true)
 env.funcs.introconsolelog("\"Local Player\" section loaded. (" .. lpcat.version .. ")")
 if lpcat.version ~= env.expectedscriptversions.localplayersection then
-	env.funcs.introconsolelog("The \"Local Player\" section is out of date. (" .. lpcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Local Player\" section is out of date. (" .. lpcat.version .. " ≠ " .. env.expectedscriptversions.localplayersection .. ")", "warn")
 end
 
 env.funcs.introprogress(68)
@@ -83,7 +83,7 @@ env.funcs.introprogress(68)
 local autocat = env.funcs.recursivels("setup/script%20sections/automation.lua", true)
 env.funcs.introconsolelog("\"Automation\" section loaded. (" .. autocat.version .. ")")
 if autocat.version ~= env.expectedscriptversions.automationsection then
-	env.funcs.introconsolelog("The \"Automation\" section is out of date. (" .. autocat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Automation\" section is out of date. (" .. autocat.version .. " ≠ " .. env.expectedscriptversions.automationsection .. ")", "warn")
 end
 
 env.funcs.introprogress(70)
@@ -91,7 +91,7 @@ env.funcs.introprogress(70)
 local animcat = env.funcs.recursivels("setup/script%20sections/animations.lua", true)
 env.funcs.introconsolelog("\"Animations\" section loaded. (" .. animcat.version .. ")")
 if animcat.version ~= env.expectedscriptversions.animationssection then
-	env.funcs.introconsolelog("The \"Animations\" section is out of date. (" .. animcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Animations\" section is out of date. (" .. animcat.version .. " ≠ " .. env.expectedscriptversions.animationssection .. ")", "warn")
 end
 
 env.funcs.introprogress(72)
@@ -99,7 +99,7 @@ env.funcs.introprogress(72)
 local funcat = env.funcs.recursivels("setup/script%20sections/fun.lua", true)
 env.funcs.introconsolelog("\"Fun\" section loaded. (" .. funcat.version .. ")")
 if funcat.version ~= env.expectedscriptversions.funsection then
-	env.funcs.introconsolelog("The \"Fun\" section is out of date. (" .. funcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Fun\" section is out of date. (" .. funcat.version .. " ≠ " .. env.expectedscriptversions.funsection .. ")", "warn")
 end
 
 env.funcs.introprogress(74)
@@ -107,7 +107,7 @@ env.funcs.introprogress(74)
 local donorcat = env.funcs.recursivels("setup/script%20sections/donor.lua", true) 
 env.funcs.introconsolelog("\"Donor\" section loaded. (" .. donorcat.version .. ")")
 if donorcat.version ~= env.expectedscriptversions.donorsection then
-	env.funcs.introconsolelog("The \"Donor\" section is out of date. (" .. donorcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Donor\" section is out of date. (" .. donorcat.version .. " ≠ " .. env.expectedscriptversions.donorsection .. ")", "warn")
 end
 
 env.funcs.introprogress(76)
@@ -115,7 +115,7 @@ env.funcs.introprogress(76)
 local scriptsettingscat = env.funcs.recursivels("setup/script%20sections/script%20settings.lua", true)
 env.funcs.introconsolelog("Script Settings section loaded. (" .. scriptsettingscat.version .. ")")
 if scriptsettingscat.version ~= env.expectedscriptversions.scriptsettingssection then
-	env.funcs.introconsolelog("The \"Script Settings\" section is out of date. (" .. scriptsettingscat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Script Settings\" section is out of date. (" .. scriptsettingscat.version .. " ≠ " .. env.expectedscriptversions.scriptsettingssection .. ")", "warn")
 end
 
 env.funcs.introprogress(78)
@@ -123,7 +123,7 @@ env.funcs.introprogress(78)
 local uisettingscat = env.funcs.recursivels("setup/script%20sections/ui%20settings.lua", true)
 env.funcs.introconsolelog("UI Settings section loaded. (" .. uisettingscat.version .. ")")
 if uisettingscat.version ~= env.expectedscriptversions.uisettingssection then
-	env.funcs.introconsolelog("The \"UI Settings\" section is out of date. (" .. uisettingscat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"UI Settings\" section is out of date. (" .. uisettingscat.version .. " ≠ " .. env.expectedscriptversions.uisettingssection .. ")", "warn")
 end
 
 env.funcs.introprogress(80)
@@ -131,7 +131,7 @@ env.funcs.introprogress(80)
 local changelogscat = env.funcs.recursivels("setup/script%20sections/changelogs.lua", true)
 env.funcs.introconsolelog("Changelogs section loaded. (" .. changelogscat.version .. ")")
 if changelogscat.version ~= env.expectedscriptversions.changelogssection then
-	env.funcs.introconsolelog("The \"Changelogs\" section is out of date. (" .. changelogscat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Changelogs\" section is out of date. (" .. changelogscat.version .. " ≠ " .. env.expectedscriptversions.changelogssection .. ")", "warn")
 end
 
 env.funcs.introprogress(82)
@@ -139,7 +139,7 @@ env.funcs.introprogress(82)
 local clcat = env.funcs.recursivels("setup/script%20sections/config%20loading.lua", true)
 env.funcs.introconsolelog("Config loading section loaded. (" .. clcat.version .. ")")
 if clcat.version ~= env.expectedscriptversions.configloadingsection then
-	env.funcs.introconsolelog("The \"Config Loading\" section is out of date. (" .. clcat.version .. "OoD)", "warn")
+	env.funcs.introconsolelog("The \"Config Loading\" section is out of date. (" .. clcat.version .. " ≠ " .. env.expectedscriptversions.configloadingsection .. ")", "warn")
 end
 
 env.funcs.introprogress(84)
