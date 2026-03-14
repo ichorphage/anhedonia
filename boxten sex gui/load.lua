@@ -164,7 +164,7 @@ spwn(function()
 			[Enum.MessageType.MessageError]   = "err",
 		})[messageType] or ""
 
-		if not message:find("[Shrimpo]: ") then
+		if message:find("Shrimpo") then
 			message = message:gsub("%s*Stack Begin.+Stack End", "")
 			message = message:gsub("^.-%:%d+%: ", "")
 			message = message:gsub("%s*$", "")
