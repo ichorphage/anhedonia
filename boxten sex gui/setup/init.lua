@@ -631,6 +631,7 @@ do
 	env.stuf.plrstats = nil
 
 	local function updcharrefs(char)
+		yield(function() return env.setupcomplete end)
 		if not char then return end
 		env.stuf.char = char
 
