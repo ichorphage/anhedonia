@@ -1030,7 +1030,7 @@ do
 	end
 
   function env.funcs.floorunloading() -- returns true if the current floor is unloading
-    if env.funcs.getgamestats().message:find("Quickly") and env.stuf.elevator:FindFirstChild("Opened").Value then
+    if env.funcs.getgamestats().message:find("Quickly") and not env.stuf.elevator:FindFirstChild("Opened").Value then
       return true
     end
   end
