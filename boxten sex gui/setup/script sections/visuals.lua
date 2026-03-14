@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 4
+local version = 5
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -481,7 +481,7 @@ local function setupplayeresp(state)
 
 			local nameSection = Instance.new("Frame")
 			nameSection.Size = UDim2.fromOffset(billboardWidth, nameRowHeight)
-			nameSection.Position = UDim2.fromOffset(0, 0)  -- top-left
+			nameSection.Position = UDim2.fromOffset(0, 50)
 			nameSection.BackgroundTransparency = 1
 			nameSection.Parent = fullBillboard
 
@@ -493,7 +493,7 @@ local function setupplayeresp(state)
 			displayname.Font = Enum.Font.FredokaOne
 			displayname.TextSize = 13
 			displayname.TextColor3 = espsettings.colors.player
-			displayname.TextXAlignment = Enum.TextXAlignment.Left
+			displayname.TextXAlignment = Enum.TextXAlignment.Right
 			displayname.Parent = nameSection
 
 			local border1 = Instance.new("UIStroke")
@@ -509,7 +509,7 @@ local function setupplayeresp(state)
 			username.Font = Enum.Font.FredokaOne
 			username.TextSize = 11
 			username.TextColor3 = espsettings.colors.player
-			username.TextXAlignment = Enum.TextXAlignment.Left
+			username.TextXAlignment = Enum.TextXAlignment.Right
 			username.Parent = nameSection
 
 			local border2 = Instance.new("UIStroke")
@@ -526,7 +526,7 @@ local function setupplayeresp(state)
 
 			local invSection = Instance.new("Frame")
 			invSection.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			invSection.Position = UDim2.fromOffset(0, totalBillboardHeight - billboardHeight)  -- bottom-left
+			invSection.Position = UDim2.fromOffset(0, (totalBillboardHeight - billboardHeight) + 50)  -- bottom-left
 			invSection.BackgroundTransparency = 1
 			invSection.Parent = fullBillboard
 
