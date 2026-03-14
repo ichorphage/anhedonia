@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 3
+local version = 4
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -469,10 +469,13 @@ local function setupplayeresp(state)
 
 			local nameBillboard = Instance.new("BillboardGui")
 			nameBillboard.Size = UDim2.fromOffset(billboardWidth, nameRowHeight)
-			nameBillboard.StudsOffset = Vector3.new(0, -0.14, 0)
+			nameBillboard.StudsOffsetWorldSpace = Vector3.new(0, 2.5, 0)  -- above head in world space
+			nameBillboard.MaxDistance = 60  -- hide beyond this distance
 			nameBillboard.AlwaysOnTop = true
 			nameBillboard.Adornee = head
 			nameBillboard.Parent = head
+			nameBillboard.ResetOnSpawn = false
+			nameBillboard.ClipsDescendants = false
 			billboards.name = nameBillboard
 
 			-- icon
@@ -519,10 +522,13 @@ local function setupplayeresp(state)
 
 			local invBillboard = Instance.new("BillboardGui")
 			invBillboard.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			invBillboard.StudsOffset = Vector3.new(0, -3.2, 0)
+			invBillboard.StudsOffsetWorldSpace = Vector3.new(0, -2.5, 0)  -- below hrp in world space
+			invBillboard.MaxDistance = 60
 			invBillboard.AlwaysOnTop = true
 			invBillboard.Adornee = hrp
 			invBillboard.Parent = hrp
+			invBillboard.ResetOnSpawn = false
+			invBillboard.ClipsDescendants = false
 			billboards.inv = invBillboard
 
 			local invPositions = {
@@ -577,10 +583,13 @@ local function setupplayeresp(state)
 			
 			local sideBillboard = Instance.new("BillboardGui")
 			sideBillboard.Size = UDim2.fromOffset(120, 80)
-			sideBillboard.StudsOffset = Vector3.new(3.5, 0, 0)
+			sideBillboard.StudsOffsetWorldSpace = Vector3.new(3.5, 0, 0)  -- right side in world space
+			sideBillboard.MaxDistance = 60
 			sideBillboard.AlwaysOnTop = true
 			sideBillboard.Adornee = hrp
 			sideBillboard.Parent = hrp
+			sideBillboard.ResetOnSpawn = false
+			sideBillboard.ClipsDescendants = false
 			billboards.side = sideBillboard
 
 			local sidelayout = Instance.new("UIListLayout")
@@ -758,7 +767,7 @@ local function setupplayeresp(state)
 			end
 			
 			-- twisteds chasing
-			local chasinglabel = addSideText("Chasing: ?", espsettings.colors.player, 13)
+			local chasinglabel = addSideText("Twisteds chasing: ?", espsettings.colors.player, 13)
 
 			local function updateChasing()
 				local stats = env.funcs.getstats("player", char)
