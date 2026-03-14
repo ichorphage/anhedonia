@@ -701,10 +701,10 @@ do
 						env.funcs.shr("ROOM MODEL DOESNT EXIST YET, CANNOT UPDATE ROOM REFERENCES.")
 						return
 					else
-						if not env.stuf.currentroom:FindFirstChild("FreeArea") then
+						if env.funcs.floorunloading() then
 							if env.stuf.refconn then env.stuf.refconn:Disconnect() env.stuf.refconn = nil end
 							if env.stuf.refconn2 then env.stuf.refconn2:Disconnect() env.stuf.refconn2 = nil end
-							env.funcs.shr("THE ROOM SEEMS TO BE INCOMPLETE OR IS CURRENTLY UNLOADING.")
+							env.funcs.shr("THE ROOM IS CURRENTLY UNLOADING. CANNOT UPDATE ROOM REFERENCES.")
 							return
 						end
 					end
@@ -1012,7 +1012,6 @@ do
 			not env.stuf.currentroom:FindFirstChild("Monsters") or
 			not env.stuf.currentroom:FindFirstChild("Items") or
 			not env.stuf.currentroom:FindFirstChild("Generators") then
-			env.funcs.pop("The room seems to be missing a few components!")
 			return false
 		end
 	end
@@ -1030,13 +1029,19 @@ do
 		end
 	end
 
+  function env.funcs.floorunloading() -- returns true if the current floor is unloading
+    if env.funcs.getgamestats().message:find("Quickly") and env.stuf.elevator:FindFirstChild("Opened").Value then
+      return true
+    end
+  end
+
 	function env.funcs.getstats(type, obj, stat) -- returns a table full of the target objects stats, can fetch the floor, item, machine, twisted, and another players stats
 		if not obj:IsA("Model") then env.funcs.shr("INVALID OBJECT, IDIOT!!!") end
 		local name = obj.Name
 		local result
 
 		if type == "floor" then
-			if not env.funcs.roomcomplete() then return end
+  		if env.funcs.floorunloading() then return end
 
 			local floorname = env.stuf.currentroom.Name
 			local hasdialoguetriggers = obj:GetAttribute("HasDialogueTriggers")
