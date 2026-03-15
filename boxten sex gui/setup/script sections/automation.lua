@@ -1282,10 +1282,14 @@ local function autofarm(state)
 					if not env.stuf.actionqueuerunning then
 						if not env.funcs.getgamestats().panicmode then
 							if env.funcs.getgamestats().flooractive then
-								if not env.funcs.getstats("player", env.stuf.char).extracting then
-									env.funcs.tomachine("tp")
+								if env.funcs.floorunloading() then
+									if not env.funcs.getstats("player", env.stuf.char).extracting then
+										env.funcs.tomachine("tp")
+									else
+										env.funcs.pop("Player is extracting, cannot teleport to machine.")
+									end
 								else
-									env.funcs.pop("Player is extracting, cannot teleport to machine.")
+									env.funcs.pop("Floor is unloading, cannot teleport to machine.")
 								end
 							else
 								env.funcs.pop("\"FloorActive\" game stat is not true, cannot teleport to machine.")
