@@ -1254,6 +1254,7 @@ local function autofarm(state)
 			autoencounteringtwisteds = autoactions.autoencountertwisteds.enabled,
 			performactionstrigger = env.stuf.afe.actiontrigger,
 			autoforcequittingmachine = autoforcequittingmachine,
+			antiafking = env.stuf.antiafking
 		}
 
 		env.stuf.afe.running = true
@@ -1275,6 +1276,7 @@ local function autofarm(state)
 		env.essentials.library.update("Auto encounter Twisteds", true)
 		env.essentials.library.update("Perform actions trigger", env.stuf.afe.actiontrigger)
 		env.essentials.library.update("Auto force quit machine", true)
+		env.essentials.library.update("Anti AFK", true)
 		t(0.1)
 
 		local tplooppause = false
@@ -1466,6 +1468,7 @@ local function autofarm(state)
 		env.essentials.library.update("Auto encounter Twisteds", env.stuf.afe.saved.autoencounteringtwisteds)
 		env.essentials.library.update("Perform actions trigger", env.stuf.afe.saved.performactionstrigger)
 		env.essentials.library.update("Auto force quit machine", env.stuf.afe.saved.autoforcequittingmachine)
+		env.essentials.library.update("Anti AFK", env.stuf.afe.saved.antiafking)
 	end
 end
 
