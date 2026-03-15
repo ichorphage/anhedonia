@@ -530,7 +530,7 @@ local function setupplayeresp(state)
 			border2.Parent = username
 
 			local icon = Instance.new("ImageLabel")
-			icon.Size = UDim2.fromOffset(28, 30)
+			icon.Size = UDim2.fromOffset(26, 30)
 			icon.Position = UDim2.fromOffset(billboardWidth - 32, 3)
 			icon.BackgroundTransparency = 1
 			icon.Image = env.funcs.getstats("player", char).icon or ""
@@ -776,7 +776,7 @@ local function setupplayeresp(state)
 			local function updateChasing()
 				local stats = env.funcs.getstats("player", char)
 				local val = stats and stats.twistedschasing
-				chasinglabel.Text = "Chasing: " .. (val ~= nil and tostring(val) or "?")
+				chasinglabel.Text = "Twisteds chasing: " .. (val ~= nil and tostring(val) or "?")
 			end
 
 			updateChasing()
