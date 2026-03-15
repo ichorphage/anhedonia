@@ -266,7 +266,7 @@ local esphandler = {
 		enabled = false,
 		hls = {},
 		conn = nil,
-		
+
 		ui = {}
 	},
 	twisted = {
@@ -393,7 +393,7 @@ local function bubble(parent, pos, img)
 		itemimage.Size = UDim2.fromScale(1, 1)
 		itemimage.Parent = itemframe
 	end
-	
+
 	return itemframe, itemimage
 end
 
@@ -452,7 +452,7 @@ local function setupplayeresp(state)
 				UDim2.fromOffset(centerX + startX + slotSize + gap,       centerY),
 				UDim2.fromOffset(centerX + startX + (slotSize + gap) * 2, centerY),
 			}
-			
+
 			local nameRowHeight = 36
 
 			local head = char:WaitForChild("Head", 10)
@@ -462,7 +462,7 @@ local function setupplayeresp(state)
 
 			local billboards = {}
 			esphandler.player.ui[player.Name] = billboards
-			
+
 			local sideSectionWidth = 120
 			local sideSectionHeight = 100
 			local totalBillboardWidth = billboardWidth + sideSectionWidth + 16
@@ -474,7 +474,7 @@ local function setupplayeresp(state)
 			fullBillboard.AlwaysOnTop = true
 			fullBillboard.Adornee = hrp
 			fullBillboard.Parent = hrp
-	
+
 			billboards.name = fullBillboard
 			billboards.inv = fullBillboard
 			billboards.side = fullBillboard
@@ -516,7 +516,7 @@ local function setupplayeresp(state)
 			border2.Color = Color3.fromRGB(255, 255, 255)
 			border2.Thickness = mobile and 1 or 2
 			border2.Parent = username
-			
+
 			local icon = Instance.new("ImageLabel")
 			icon.Size = UDim2.fromOffset(28, 30)
 			icon.Position = UDim2.fromOffset(billboardWidth - 32, 3)
@@ -579,7 +579,7 @@ local function setupplayeresp(state)
 					if conn then conn:Disconnect() end
 				end
 			end)
-			
+
 			local sideSection = Instance.new("Frame")
 			sideSection.Size = UDim2.fromOffset(sideSectionWidth, sideSectionHeight)
 			sideSection.Position = UDim2.fromOffset(billboardWidth + 16, (totalBillboardHeight / 2) - (sideSectionHeight / 2))
@@ -609,8 +609,6 @@ local function setupplayeresp(state)
 
 				return label
 			end
-			
-			local HEART_ICON = "rbxassetid://16790556042"
 
 			local healthRow = Instance.new("Frame")
 			healthRow.Size = UDim2.new(1, 0, 0, 13)
@@ -646,7 +644,7 @@ local function setupplayeresp(state)
 				local heart = Instance.new("ImageLabel")
 				heart.Size = UDim2.fromOffset(15, 15)
 				heart.BackgroundTransparency = 1
-				heart.Image = HEART_ICON
+				heart.Image = "rbxassetid://16790556042"
 				heart.ImageTransparency = 1
 				heart.LayoutOrder = i
 				heart.Parent = healthRow
@@ -759,7 +757,7 @@ local function setupplayeresp(state)
 					end
 				end)
 			end
-			
+
 			-- twisteds chasing
 			local chasinglabel = addSideText("Twisteds chasing: ?", espsettings.colors.player, 13)
 
