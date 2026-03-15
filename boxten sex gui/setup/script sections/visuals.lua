@@ -486,7 +486,7 @@ local function setupplayeresp(state)
 			nameSection.Parent = fullBillboard
 
 			local displayname = Instance.new("TextLabel")
-			displayname.Size = UDim2.fromOffset(billboardWidth - 36, 18)  -- leave room for icon
+			displayname.Size = UDim2.fromOffset(billboardWidth - 36, 17)
 			displayname.Position = UDim2.fromOffset(0, 2)
 			displayname.BackgroundTransparency = 1
 			displayname.Text = player.DisplayName
@@ -502,12 +502,12 @@ local function setupplayeresp(state)
 			border1.Parent = displayname
 
 			local username = Instance.new("TextLabel")
-			username.Size = UDim2.fromOffset(billboardWidth - 36, 14)
+			username.Size = UDim2.fromOffset(billboardWidth - 36, 13)
 			username.Position = UDim2.fromOffset(0, 19)
 			username.BackgroundTransparency = 1
 			username.Text = "(@" .. player.Name .. ")"
 			username.Font = Enum.Font.FredokaOne
-			username.TextSize = 11
+			username.TextSize = 13
 			username.TextColor3 = espsettings.colors.player
 			username.TextXAlignment = Enum.TextXAlignment.Right
 			username.Parent = nameSection
@@ -526,7 +526,7 @@ local function setupplayeresp(state)
 
 			local invSection = Instance.new("Frame")
 			invSection.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			invSection.Position = UDim2.fromOffset(0, (totalBillboardHeight - billboardHeight) + 50)  -- bottom-left
+			invSection.Position = UDim2.fromOffset(0, totalBillboardHeight - billboardHeight - 50)
 			invSection.BackgroundTransparency = 1
 			invSection.Parent = fullBillboard
 
@@ -597,7 +597,7 @@ local function setupplayeresp(state)
 				label.BackgroundTransparency = 1
 				label.Text = text
 				label.Font = Enum.Font.FredokaOne
-				label.TextSize = size or 11
+				label.TextSize = size or 13
 				label.TextColor3 = color or Color3.new(1, 1, 1)
 				label.TextXAlignment = Enum.TextXAlignment.Left
 				label.Parent = sideSection
