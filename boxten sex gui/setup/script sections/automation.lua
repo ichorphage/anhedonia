@@ -11,7 +11,7 @@
 
 local version = 3
 
--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------f-----------------------
 
 -- services & instances
 local t, spwn = task.wait, task.spawn
@@ -824,14 +824,15 @@ local function autouseitems(state)
 
 	table.insert(autouseitemsconns, env.stuf.char.Stats.CurrentStamina.Changed:Connect(function(val)
 		if not autousingitems then return end
-		if val >= 20 then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
 		local behavior = autouseitemsbehavior
 		if behavior == "Instant" then
 			useanyitem(stats)
 		elseif behavior == "When necessary" then
-			usecategoryitems(stats, autouseitemcats.stamina)
+			if env.stuf.char.Stats.CurrentStamina.Value < 20 then
+				usecategoryitems(stats, autouseitemcats.stamina)
+			end
 		elseif behavior == "1 second delay" then
 			task.delay(1, function()
 				if not autousingitems then return end
@@ -843,14 +844,15 @@ local function autouseitems(state)
 
 	table.insert(autouseitemsconns, env.stuf.char:FindFirstChildOfClass("Humanoid").HealthChanged:Connect(function(health)
 		if not autousingitems then return end
-		if health > 1 then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
 		local behavior = autouseitemsbehavior
 		if behavior == "Instant" then
 			useanyitem(stats)
 		elseif behavior == "When necessary" then
-			usecategoryitems(stats, autouseitemcats.heal)
+			if health < env.stuf.hum.MaxHealth then
+				usecategoryitems(stats, autouseitemcats.heal)
+			end
 		elseif behavior == "1 second delay" then
 			task.delay(1, function()
 				if not autousingitems then return end
