@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 5
+local version = 3
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -526,7 +526,7 @@ local function setupplayeresp(state)
 
 			local invSection = Instance.new("Frame")
 			invSection.Size = UDim2.fromOffset(billboardWidth, billboardHeight)
-			invSection.Position = UDim2.fromOffset(6, totalBillboardHeight - billboardHeight - 58)
+			invSection.Position = UDim2.fromOffset(6, totalBillboardHeight - billboardHeight - 44)
 			invSection.BackgroundTransparency = 1
 			invSection.Parent = fullBillboard
 
