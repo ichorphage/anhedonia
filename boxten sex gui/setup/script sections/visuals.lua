@@ -481,7 +481,7 @@ local function setupplayeresp(state)
 
 			local displayname = Instance.new("TextLabel")
 			displayname.Size = UDim2.fromOffset(billboardWidth - 36, 17)
-			displayname.Position = UDim2.fromOffset(0, 2)
+			displayname.Position = UDim2.fromOffset(2, 2)
 			displayname.BackgroundTransparency = 1
 			displayname.Text = player.DisplayName
 			displayname.Font = Enum.Font.FredokaOne
@@ -497,7 +497,7 @@ local function setupplayeresp(state)
 
 			local username = Instance.new("TextLabel")
 			username.Size = UDim2.fromOffset(billboardWidth - 36, 13)
-			username.Position = UDim2.fromOffset(0, 19)
+			username.Position = UDim2.fromOffset(2, 19)
 			username.BackgroundTransparency = 1
 			username.Text = "(@" .. player.Name .. ")"
 			username.Font = Enum.Font.FredokaOne
@@ -512,7 +512,7 @@ local function setupplayeresp(state)
 			border2.Parent = username
 
 			local icon = Instance.new("ImageLabel")
-			icon.Size = UDim2.fromOffset(26, 30)
+			icon.Size = UDim2.fromOffset(28, 30)
 			icon.Position = UDim2.fromOffset(billboardWidth - 32, 3)
 			icon.BackgroundTransparency = 1
 			icon.Image = env.funcs.getstats("player", char).icon or ""
