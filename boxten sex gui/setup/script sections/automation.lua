@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
-local version = 5
+local version = 3
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -706,50 +706,41 @@ local function getitemslot(stats, itemname)
 	end
 end
 
-local function tryuseitem(stats, forcecategories)
-	t(0.2)
-
-	local extracting = stats.extracting
-	local twistedschasing = (stats.twistedschasing or 0) > 0
-	local health = env.stuf.char:FindFirstChildOfClass("Humanoid").Health
-	local lowhealth = health <= 1
-
-	local priority = {}
-
-	if forcecategories then
-		for _, item in ipairs(forcecategories) do
-			table.insert(priority, item)
-		end
-	else
-		if extracting and not env.funcs.veemoteactive() then
-			for _, item in ipairs(autouseitemcats.onmachine) do table.insert(priority, item) end
-		end
-		if lowhealth then
-			for _, item in ipairs(autouseitemcats.heal) do table.insert(priority, item) end
-		end
-		if twistedschasing then
-			for _, item in ipairs(autouseitemcats.stamina) do table.insert(priority, item) end
-		end
-		if #priority == 0 and autouseitemsbehavior == "Instant" then
-			for _, item in ipairs(autouseitemcats.onmachine) do table.insert(priority, item) end
-			for _, item in ipairs(autouseitemcats.heal) do table.insert(priority, item) end
-			for _, item in ipairs(autouseitemcats.speed) do table.insert(priority, item) end
-			for _, item in ipairs(autouseitemcats.stamina) do table.insert(priority, item) end
+local function getanyitem(stats) -- returns the first available non-blacklisted item slot in any category
+	local allitems = {}
+	for _, cat in pairs(autouseitemcats) do
+		for _, item in ipairs(cat) do
+			table.insert(allitems, item)
 		end
 	end
-
-	for _, itemname in ipairs(priority) do
+	for _, itemname in ipairs(allitems) do
 		if autouseitemsblacklist[itemname] then continue end
-		if not forcecategories then
-			if (itemname == "HealthKit" or itemname == "Bandage") and not lowhealth then continue end
-		end
+		local slot = getitemslot(stats, itemname)
+		if slot then return slot, itemname end
+	end
+end
+
+local function usecategoryitems(stats, category) -- tries to use the first available item from a specific category
+	for _, itemname in ipairs(category) do
+		if autouseitemsblacklist[itemname] then continue end
 		local slot = getitemslot(stats, itemname)
 		if slot then
-			env.funcs.box("attempting to use " .. itemname .. " in inventory slot " .. slot)
+			env.funcs.box("using " .. itemname .. " in slot " .. slot)
 			env.funcs.useitem(slot)
-			return
+			return true
 		end
 	end
+	return false
+end
+
+local function useanyitem(stats)
+	local slot, itemname = getanyitem(stats)
+	if slot then
+		env.funcs.box("using " .. itemname .. " in slot " .. slot)
+		env.funcs.useitem(slot)
+		return true
+	end
+	return false
 end
 
 local function oninventorychanged()
@@ -760,21 +751,13 @@ local function oninventorychanged()
 	local behavior = autouseitemsbehavior
 
 	if behavior == "Instant" then
-		tryuseitem(stats)
-
-	elseif behavior == "When necessary" then
-		local extracting = stats.extracting
-		local twistedschasing = (stats.twistedschasing or 0) > 0
-		local lowhealth = env.stuf.char:FindFirstChildOfClass("Humanoid").Health <= 1
-		if extracting or twistedschasing or lowhealth then
-			tryuseitem(stats)
-		end
+		useanyitem(stats)
 
 	elseif behavior == "1 second delay" then
 		task.delay(1, function()
 			if not autousingitems then return end
 			local freshstats = env.funcs.getstats("player", env.stuf.char)
-			if freshstats then tryuseitem(freshstats) end
+			if freshstats then useanyitem(freshstats) end
 		end)
 	end
 end
@@ -807,14 +790,36 @@ local function autouseitems(state)
 		if not autousingitems then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
-		tryuseitem(stats, autouseitemcats.speed)
-		if autouseitemsbehavior == "Instant" then tryuseitem(stats) end
+		local behavior = autouseitemsbehavior
+		if behavior == "Instant" then
+			useanyitem(stats)
+		elseif behavior == "When necessary" then
+			usecategoryitems(stats, autouseitemcats.speed)
+		elseif behavior == "1 second delay" then
+			task.delay(1, function()
+				if not autousingitems then return end
+				local freshstats = env.funcs.getstats("player", env.stuf.char)
+				if freshstats then usecategoryitems(freshstats, autouseitemcats.speed) end
+			end)
+		end
 	end))
 
 	table.insert(autouseitemsconns, env.stuf.char.Decoding.Changed:Connect(function()
-		if not autousingitems or autouseitemsbehavior ~= "Instant" then return end
+		if not autousingitems then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
-		if stats then tryuseitem(stats) end
+		if not stats then return end
+		local behavior = autouseitemsbehavior
+		if behavior == "Instant" then
+			useanyitem(stats)
+		elseif behavior == "When necessary" then
+			usecategoryitems(stats, autouseitemcats.onmachine)
+		elseif behavior == "1 second delay" then
+			task.delay(1, function()
+				if not autousingitems then return end
+				local freshstats = env.funcs.getstats("player", env.stuf.char)
+				if freshstats then usecategoryitems(freshstats, autouseitemcats.onmachine) end
+			end)
+		end
 	end))
 
 	table.insert(autouseitemsconns, env.stuf.char.Stats.CurrentStamina.Changed:Connect(function(val)
@@ -822,9 +827,37 @@ local function autouseitems(state)
 		if val >= 20 then return end
 		local stats = env.funcs.getstats("player", env.stuf.char)
 		if not stats then return end
-		-- stamina low: try stamina items specifically first
-		tryuseitem(stats, autouseitemcats.stamina)
-		if autouseitemsbehavior == "Instant" then tryuseitem(stats) end
+		local behavior = autouseitemsbehavior
+		if behavior == "Instant" then
+			useanyitem(stats)
+		elseif behavior == "When necessary" then
+			usecategoryitems(stats, autouseitemcats.stamina)
+		elseif behavior == "1 second delay" then
+			task.delay(1, function()
+				if not autousingitems then return end
+				local freshstats = env.funcs.getstats("player", env.stuf.char)
+				if freshstats then usecategoryitems(freshstats, autouseitemcats.stamina) end
+			end)
+		end
+	end))
+
+	table.insert(autouseitemsconns, env.stuf.char:FindFirstChildOfClass("Humanoid").HealthChanged:Connect(function(health)
+		if not autousingitems then return end
+		if health > 1 then return end
+		local stats = env.funcs.getstats("player", env.stuf.char)
+		if not stats then return end
+		local behavior = autouseitemsbehavior
+		if behavior == "Instant" then
+			useanyitem(stats)
+		elseif behavior == "When necessary" then
+			usecategoryitems(stats, autouseitemcats.heal)
+		elseif behavior == "1 second delay" then
+			task.delay(1, function()
+				if not autousingitems then return end
+				local freshstats = env.funcs.getstats("player", env.stuf.char)
+				if freshstats then usecategoryitems(freshstats, autouseitemcats.heal) end
+			end)
+		end
 	end))
 end
 
