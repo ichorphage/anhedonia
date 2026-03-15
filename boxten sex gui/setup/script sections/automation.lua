@@ -80,6 +80,11 @@ local autoteleporttoelevatorconn
 local autoteleportingtoelevator = false
 
 function getelevatorcframe(ele, nearshop)
+	if env.stuf.afe.running then
+		if table.find(env.stuf.afe.actions, "Auto buy items") or env.stuf.afe.actions == "Auto buy items" then
+			nearshop = true
+		end
+	end
 	local placednearshop = ele.CFrame * CFrame.new(-6, -10.5, 0) * CFrame.Angles(0, math.rad(-90), 0)
 	local center = ele.CFrame * CFrame.new(0, -10.5, 0) * CFrame.Angles(0, math.rad(-90), 0)
 
